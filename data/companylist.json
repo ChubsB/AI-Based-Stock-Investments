@@ -1,0 +1,103 @@
+[
+	{
+		"id": 1,
+		"symbol": "ABL",
+		"name": "Allied Bank Ltd."
+	},
+	{
+		"id": 2,
+		"symbol": "ABOT",
+		"name": "Abbott Laboratories (Pak) Ltd."
+	},
+	{
+		"id": 3,
+		"symbol": "AGP",
+		"name": "AGP Ltd."
+	},
+	{
+		"id": 4,
+		"symbol": "AICL",
+		"name": "Adamjee Insurance Company Ltd."
+	},
+	{
+		"id": 5,
+		"symbol": "AIRLINK",
+		"name": "Air Link Communication Ltd"
+	},
+	{
+		"id": 6,
+		"symbol": "AKBL",
+		"name": "Askari Bank Ltd."
+	},
+	{
+		"id": 7,
+		"symbol": "APL",
+		"name": "Attock Petroleum Ltd."
+	},
+	{
+		"id": 8,
+		"symbol": "ARPL",
+		"name": "Archroma Pakistan Ltd."
+	},
+	{
+		"id": 9,
+		"symbol": "ATLH",
+		"name": "Atlas Honda Ltd."
+	},
+	{
+		"id": 10,
+		"symbol": "ATRL",
+		"name": "Attock Refinery Ltd."
+	},
+	//newwwwwwwwwwwwwwwwwwwwwww
+	{
+		"id": 11,
+		"symbol": "AVN",
+		"name": "Avanceon Ltd. Consolidated"
+	},
+	{
+		"id": 12,
+		"symbol": "BAFL",
+		"name": "Bank Alfalah Ltd."
+	},
+	{
+		"id": 13,
+		"symbol": "BAHL",
+		"name": "Bank AL-Habib Ltd."
+	},
+	{
+		"id": 14,
+		"symbol": "BNWM",
+		"name": "Bannu Woollen Mills Ltd."
+	},
+	{
+		"id": 15,
+		"symbol": "BOP",
+		"name": "The Bank Of Punjab"
+	},
+	{
+		"id": 16,
+		"symbol": "CEPB",
+		"name": "Century Paper & Board Mills Ltd."
+	},
+	{
+		"id": 17,
+		"symbol": "CHCC",
+		"name": "Cherat Cement Company Ltd."
+	},
+	{
+		"id": 18,
+		"symbol": "CNERGY",
+		"name": "Cnergyico Pk Ltd. (Byco Petroleum)"
+	},
+	{
+		"id": 19,
+		"symbol": "COLG",
+		"name": "Colgate Palmolive (Pak) Ltd."
+	},
+	{
+		"id": 20,
+		"symbol": "DAWH",
+		"name": "Dawood Hercules Corporation Ltd."
+	},
+]
