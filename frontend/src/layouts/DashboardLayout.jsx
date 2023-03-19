@@ -1,35 +1,30 @@
 import React, { useState } from 'react';
 import ChartFill from '../assets/images/Chart_fill.png';
-import Calendar from '../assets/images/Calendar.png';
 import Chart from '../assets/images/Chart.png';
 import Chat from '../assets/images/Chat.png';
 import User from '../assets/images/User.png';
-import Search from '../assets/images/Search.png';
 import Folder from '../assets/images/Folder.png';
 import Setting from '../assets/images/Setting.png';
 import Control from '../assets/images/Control.png';
 import Logo from '../assets/images/Logo.png';
 import { FiUser, FiBell } from 'react-icons/fi';
-import InfoBox from '../components/InfoBox';
 
 const DashboardLayout = (props) => {
 	const [open, setOpen] = useState(true);
 	const Menus = [
 		{ title: 'Dashboard', src: ChartFill },
-		{ title: 'Inbox', src: Chat },
-		{ title: 'Accounts', src: User, gap: true },
-		{ title: 'Schedule ', src: Calendar },
-		{ title: 'Search', src: Search },
-		{ title: 'Analytics', src: Chart },
-		{ title: 'Files ', src: Folder, gap: true },
-		{ title: 'Setting', src: Setting },
+		{ title: 'Market Summary', src: Chat },
+		{ title: 'Stocks', src: Chart},
+		{ title: 'Portfolio ', src: User },
+		{ title: 'Theme ', src: Folder, gap: true },
+		{ title: 'Settings', src: Setting },
 	];
 	return (
-		<div className="flex">
+		<div className="flex min-h-screen h-full">
 			<div
 				className={` ${
 					open ? 'w-72' : 'w-20 '
-				} bg-primary h-screen p-5  pt-8 relative duration-300`}
+				} bg-primary p-5 pt-8 relative duration-300 h-screen sticky top-0`}
 			>
 				<img
 					src={Control}
@@ -57,7 +52,7 @@ const DashboardLayout = (props) => {
 						<li
 							key={index}
 							className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-              ${Menu.gap ? 'mt-9' : 'mt-2'} ${
+              ${Menu.gap ? 'mt-9' : 'mt-4'} ${
 								index === 0 && 'bg-light-white'
 							} `}
 						>
@@ -69,7 +64,7 @@ const DashboardLayout = (props) => {
 					))}
 				</ul>
 			</div>
-			<div className="h-screen w-full bg-secondary">
+			<div className="w-full h-screen bg-secondary overflow-y-scroll">
 				<div className="flex items-center justify-between h-[10%] bg-secondayBackground shadow-md">
 					<div className="ml-10 text-primary font-inter font-semibold text-3xl">
 						Dashboard
