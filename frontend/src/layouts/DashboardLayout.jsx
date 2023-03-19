@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate  } from 'react-router-dom';
 import ChartFill from '../assets/images/Chart_fill.png';
 import Chart from '../assets/images/Chart.png';
 import Chat from '../assets/images/Chat.png';
@@ -10,11 +11,13 @@ import Logo from '../assets/images/Logo.png';
 import { FiUser, FiBell } from 'react-icons/fi';
 
 const DashboardLayout = (props) => {
+	const [tab, setTab] = useState('Dashboard');
+	const navigate = useNavigate();
 	const [open, setOpen] = useState(true);
 	const Menus = [
 		{ title: 'Dashboard', src: ChartFill },
-		{ title: 'Market Summary', src: Chat },
-		{ title: 'Stocks', src: Chart},
+		{ title: 'Market', src: Chat },
+		{ title: 'Stocks', src: Chart },
 		{ title: 'Portfolio ', src: User },
 		{ title: 'Theme ', src: Folder, gap: true },
 		{ title: 'Settings', src: Setting },
@@ -50,14 +53,20 @@ const DashboardLayout = (props) => {
 				<ul className="pt-6">
 					{Menus.map((Menu, index) => (
 						<li
+							onClick={() => {
+								setTab(Menu.title)
+								navigate("/"+ Menu.title)
+							}}
 							key={index}
-							className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-              ${Menu.gap ? 'mt-9' : 'mt-4'} ${
-								index === 0 && 'bg-light-white'
-							} `}
+							className={`flex  rounded-md p-2 cursor-pointer hover:bg-primaryHover text-secondary text-sm items-center gap-x-4 transition-all ease-in duration-300
+              ${Menu.gap ? 'mt-9' : 'mt-4'} ${tab == Menu.title && 'bg-primaryHover'} `}
 						>
 							<img src={Menu.src} />
-							<span className={`${!open && 'hidden'} font-inter origin-left duration-200`}>
+							<span
+								className={`${
+									!open && 'hidden'
+								} font-inter origin-left duration-200`}
+							>
 								{Menu.title}
 							</span>
 						</li>
