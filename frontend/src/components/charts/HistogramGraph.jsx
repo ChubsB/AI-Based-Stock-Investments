@@ -12,7 +12,7 @@ const HistogramGraph = ({ data }) => {
 		layout="horizontal"
 		valueScale={{ type: 'linear' }}
 		indexScale={{ type: 'band', round: true }}
-		colors={{ scheme: 'greys' }}
+		colors={() => '#3f3f46'}
 		defs={[
 			{
 				id: 'dots',
@@ -63,10 +63,7 @@ const HistogramGraph = ({ data }) => {
 		}}
 		labelSkipWidth={12}
 		labelSkipHeight={12}
-		labelTextColor={{
-			from: 'color',
-			modifiers: [['darker', 1.6]],
-		}}
+		labelTextColor={() => '#e4e4e7'}
 		legends={[]}
 		motionConfig="slow"
 		role="application"

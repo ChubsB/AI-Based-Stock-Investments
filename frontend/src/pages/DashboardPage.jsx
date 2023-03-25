@@ -26,7 +26,7 @@ function DashboardPage() {
 				<div className="font-inter font-bold text-xl mt-4 ml-10">
 						Overall Asset Growth
 					</div>
-					<LineGraph data={LineData} />
+					<LineGraph data={LineData}/>
 				</div>
 				<div className="flex flex-col items-center bg-secondayBackground h-full w-1/5 rounded">
 					<div className="font-inter font-semibold text-xl mt-8">

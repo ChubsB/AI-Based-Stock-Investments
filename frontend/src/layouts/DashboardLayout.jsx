@@ -55,7 +55,7 @@ const DashboardLayout = (props) => {
 						<li
 							onClick={() => {
 								setTab(Menu.title)
-								navigate("/"+ Menu.title)
+								navigate("/"+ Menu.title.toLowerCase())
 							}}
 							key={index}
 							className={`flex  rounded-md p-2 cursor-pointer hover:bg-primaryHover text-secondary text-sm items-center gap-x-4 transition-all ease-in duration-300

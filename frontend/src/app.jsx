@@ -4,8 +4,7 @@ import LayoutWrapper from './layouts/LayoutWrapper';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
-import DashboardLayout from './layouts/DashboardLayout';
-import SideBar from './components/SideBar';
+import MarketPage from './pages/MarketPage'
 import './app.css';
 
 function App() {
@@ -15,6 +14,7 @@ function App() {
 			<Route path="/login" element={<LoginPage />} />
 			<Route path="/signup" element={<RegisterPage />} />
 			<Route path="/dashboard" element={<DashboardPage/>} />
+			<Route path="/market" element={<MarketPage/>} />
 		</Routes>
 	);
 }
