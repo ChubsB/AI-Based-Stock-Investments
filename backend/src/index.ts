@@ -5,10 +5,14 @@ import mongoose from 'mongoose';
 import * as logger from './services/loggingService';
 import { logEndpoints } from './services/expressUtilsService';
 import { userRouter } from './controllers/userController';
+import { portfolioRouter } from './controllers/portfolioController';
+import {Company} from './models/companyModel'
 
 dotenv.config();
 
 const app: Express = express();
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 mongoose.set("strictQuery", false);
 mongoose.connect(config.mongo.url, { retryWrites: true, w: 'majority' })
@@ -26,8 +30,6 @@ const StartServer = () => {
 		});
 		next();
 	});
-	app.use(express.urlencoded({ extended: true }));
-	app.use(express.json());
 	app.use((req, res, next) => {
 		res.header('Access-Control-Allow-Origin', '*');
 		res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -39,14 +41,25 @@ const StartServer = () => {
 	});
 }
 
-app.get('health-check', (req: Request, res: Response) => {
-res.send('Rupi Backend, STATUS : OK');
+app.get('/health-check', (req: Request, res: Response) => {
+	res.send('Rupi Backend, STATUS : OK');
 });
+
+app.post('/company', (req: Request, res: Response) => {
+	for (let i = 0; i < req.body.length; i++) {
+		Company.create(req.body[i])
+		console.log('Created: ' + req.body[i].symbol)
+	  }
+	res.status(201).send("Complete")
+});
+
+app.use('/users', userRouter);
+app.use('/portfolios', portfolioRouter);
 
 app.use((req, res, next) => {
 	const error = new Error('Not found');
 
-	logger.error(''+ error);
+	logger.error('' + error);
 
 	res.status(404).json({
 		message: error.message
@@ -54,9 +67,7 @@ app.use((req, res, next) => {
 });
 
 app.listen(config.server.port, () => {
-	logger.info(`[SERVER] Server is running at http://localhost:${config.server.port}`)
+	logger.info(`Server is running at http://localhost:${config.server.port}`)
 })
-
-app.use('/users', userRouter);
 
 logEndpoints(app);

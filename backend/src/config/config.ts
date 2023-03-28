@@ -4,7 +4,7 @@ dotenv.config()
 
 const MONGO_USERNAME = process.env.MONGO_USERNAME || '';
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD || '';
-const MONGO_URL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@rupicorp.hu67o3a.mongodb.net/?retryWrites=true&w=majority`;
+const MONGO_URL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@rupicorp.hu67o3a.mongodb.net/Rupi?retryWrites=true&w=majority`;
 
 const SERVER_PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 1337;
 
