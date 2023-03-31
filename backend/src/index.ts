@@ -8,12 +8,14 @@ import { userRouter } from './controllers/userController';
 import { portfolioRouter } from './controllers/portfolioController';
 import {Company} from './models/companyModel'
 import { schedulePostRequest } from './services/scheduledStockDataService';
+import cors from 'cors';
 
 dotenv.config();
 
 const app: Express = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 mongoose.set("strictQuery", false);
 mongoose.connect(config.mongo.url, { retryWrites: true, w: 'majority' })
