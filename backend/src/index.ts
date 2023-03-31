@@ -7,6 +7,7 @@ import { logEndpoints } from './services/expressUtilsService';
 import { userRouter } from './controllers/userController';
 import { portfolioRouter } from './controllers/portfolioController';
 import {Company} from './models/companyModel'
+import { schedulePostRequest } from './services/scheduledStockDataService';
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ mongoose.connect(config.mongo.url, { retryWrites: true, w: 'majority' })
 		StartServer();
 	})
 	.catch((error: any) => logger.error(error));
-
+mongoose.pluralize(null);
 const StartServer = () => {
 	app.use((req, res, next) => {
 		logger.info(`Incomming - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
@@ -69,5 +70,5 @@ app.use((req, res, next) => {
 app.listen(config.server.port, () => {
 	logger.info(`Server is running at http://localhost:${config.server.port}`)
 })
-
 logEndpoints(app);
+

@@ -1,7 +1,7 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema, Types} from 'mongoose';
 
 export interface IPortfolio extends Document {
-  userId: string;
+  userId: Types.ObjectId;
   name: string;
   riskLevel: 'High' | 'Medium' | 'Low' | 'None';
   stocks: { symbol: string; quantity: number }[];
