@@ -1,0 +1,17 @@
+[
+	{
+	  "country": "Medium Risk",
+	  "hot dog": 7.6,
+	  "hot dogColor": "hsl(65, 70%, 50%)"
+	},
+	{
+	  "country": "Low Risk",
+	  "hot dog": 5.8,
+	  "hot dogColor": "hsl(65, 70%, 50%)"
+	},
+	{
+		"country": "High Risk",
+		"donut": 11,
+		"donutColor": "hsl(65, 70%, 50%)"
+	}
+  ]
