@@ -6,8 +6,10 @@ import * as logger from './services/loggingService';
 import { logEndpoints } from './services/expressUtilsService';
 import { userRouter } from './controllers/userController';
 import { portfolioRouter } from './controllers/portfolioController';
+import indexRouter from './controllers/indexController';
 import {Company} from './models/companyModel'
-import { schedulePostRequest } from './services/scheduledStockDataService';
+import priceHistoryRouter from './controllers/priceHistoryController';
+import { schedulePostRequest, fetchKSE100Data } from './services/scheduledStockDataService';
 import cors from 'cors';
 
 dotenv.config();
@@ -58,6 +60,8 @@ app.post('/company', (req: Request, res: Response) => {
 
 app.use('/users', userRouter);
 app.use('/portfolios', portfolioRouter);
+app.use('/price-history', priceHistoryRouter);
+app.use('/index', indexRouter)
 
 app.use((req, res, next) => {
 	const error = new Error('Not found');
@@ -72,5 +76,6 @@ app.use((req, res, next) => {
 app.listen(config.server.port, () => {
 	logger.info(`Server is running at http://localhost:${config.server.port}`)
 })
+
 logEndpoints(app);
 

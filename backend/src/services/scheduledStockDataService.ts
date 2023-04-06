@@ -5,6 +5,8 @@ import { IPriceHistory } from '../models/priceHistory';
 import { PriceHistoryRepository } from '../repository/priceHistoryRepository';
 import { CompanyRepository } from '../repository/companyRepository';
 import { convertDateTimeToDate } from '../helpers/stockDataFormattingHelper'
+import { IKSE100 } from '../models/kse100';
+import { KSE100Repository } from '../repository/kse100Repository';
 
 const API_ENDPOINT = 'https://www.investorslounge.com/Default/SendPostRequest';
 //company: string, datefrom: string, dateto: string
@@ -40,6 +42,37 @@ export const postData = async (companySymbol: string, dateFrom: string, dateTo: 
 		}
 	}
 };
+
+export const fetchKSE100Data = async (dateFrom: string, dateTo: string) => {
+	const body = {
+	  url: 'stock/IndexHistory',
+	  data: JSON.stringify({
+		Indexid: '2',
+		DateFrom: dateFrom,
+		DateTo: dateTo,
+		key: '',
+	  }),
+	};
+  
+	try {
+	  const response = await axios.post(API_ENDPOINT, body, {
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+	  });
+	  const data: IKSE100[] = response.data;
+	  console.log(data)
+	  const repository = new KSE100Repository();
+	  await repository.insertMany(data);
+	  logger.info('KSE100 data request succeeded');
+	} catch (error) {
+	  if (error.response) {
+		logger.error('KSE100 data request failed with status:', error.response.status);
+	  } else {
+		logger.error('KSE100 data request failed with message:', error.message);
+	  }
+	}
+  };
 
 export const schedulePostRequest = async () => {
 	const monthNames = [
