@@ -7,9 +7,11 @@ import { logEndpoints } from './services/expressUtilsService';
 import { userRouter } from './controllers/userController';
 import { portfolioRouter } from './controllers/portfolioController';
 import indexRouter from './controllers/indexController';
-import {Company} from './models/companyModel'
+import {Company} from './models/company'
 import priceHistoryRouter from './controllers/priceHistoryController';
-import { schedulePostRequest, fetchKSE100Data } from './services/scheduledStockDataService';
+import standingRouter from './controllers/standingController';
+import { scheduleStockDataPostRequest, fetchKSE100Data, SingleFillCompany, SingleFillIndex } from './services/crons/stockDataCron';
+import { populateBiggestGainers, populateBiggestLosers, populateMostActive } from './services/crons/standingPopulatingCron';
 import cors from 'cors';
 
 dotenv.config();
@@ -53,7 +55,7 @@ app.get('/health-check', (req: Request, res: Response) => {
 app.post('/company', (req: Request, res: Response) => {
 	for (let i = 0; i < req.body.length; i++) {
 		Company.create(req.body[i])
-		console.log('Created: ' + req.body[i].symbol)
+		logger.info('Created: ' + req.body[i].symbol)
 	  }
 	res.status(201).send("Complete")
 });
@@ -62,6 +64,7 @@ app.use('/users', userRouter);
 app.use('/portfolios', portfolioRouter);
 app.use('/price-history', priceHistoryRouter);
 app.use('/index', indexRouter)
+app.use('/standing', standingRouter)
 
 app.use((req, res, next) => {
 	const error = new Error('Not found');
@@ -77,5 +80,10 @@ app.listen(config.server.port, () => {
 	logger.info(`Server is running at http://localhost:${config.server.port}`)
 })
 
+// SingleFillIndex()
+// SingleFillCompany()
+// populateBiggestGainers()
+// populateBiggestLosers()
+// populateMostActive()
 logEndpoints(app);
 

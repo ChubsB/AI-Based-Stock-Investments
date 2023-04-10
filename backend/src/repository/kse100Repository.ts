@@ -23,4 +23,10 @@ export class KSE100Repository {
       throw error;
     }
   }
+
+  async findLatestDate(): Promise<Date | null> {
+    const Model = KSE100;
+    const latestDocument = await Model.findOne().sort({ dates_: -1 }).exec();
+    return latestDocument ? latestDocument.dates_ : null;
+  }
 }

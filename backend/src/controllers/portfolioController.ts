@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { PortfolioRepository } from '../repository/portfolioRepository';
 import { verifyToken } from '../services/authService';
-import { Portfolio } from '../models/portfolioModel';
+import { Portfolio } from '../models/portfolio';
 
 const portfolioRepository = new PortfolioRepository();
 

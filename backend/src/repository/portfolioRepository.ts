@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { IPortfolio, Portfolio } from '../models/portfolioModel';
+import { IPortfolio, Portfolio } from '../models/portfolio';
 
 export type CreatePortfolioInput = Omit<IPortfolio, '_id'>;
 
