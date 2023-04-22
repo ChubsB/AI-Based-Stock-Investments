@@ -1,4 +1,4 @@
-import { ICompany, Company } from '../models/companyModel';
+import { ICompany, Company } from '../models/company';
 
 export interface ICompanyRepository {
   findAll(): Promise<ICompany[]>;

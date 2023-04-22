@@ -16,11 +16,17 @@ export class KSE100Repository {
           $gte: startDate,
           $lte: endDate,
         },
-      });
+      }).sort({dates_: 1});
       return data;
     } catch (error) {
       console.error('Error fetching KSE100 data within date range:', error);
       throw error;
     }
+  }
+
+  async findLatestDate(): Promise<Date | null> {
+    const Model = KSE100;
+    const latestDocument = await Model.findOne().sort({ dates_: -1 }).exec();
+    return latestDocument ? latestDocument.dates_ : null;
   }
 }
