@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import MarketPage from './pages/MarketPage'
+import StocksPage from './pages/StocksPage';
+import PortfolioPage from './pages/PortfolioPage';
 import './app.css';
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
 			<Route path="/signup" element={<RegisterPage />} />
 			<Route path="/dashboard" element={<DashboardPage/>} />
 			<Route path="/market" element={<MarketPage/>} />
+			<Route path="/stocks" element={<StocksPage/>} />
+			<Route path="/portfolio" element={<PortfolioPage/>} />
 		</Routes>
 	);
 }

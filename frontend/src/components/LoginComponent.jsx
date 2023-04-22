@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
+import { login } from '../api/users';
+import ErrorModal from './ErrorModal';
 
 const LoginSchema = Yup.object().shape({
 	email: Yup.string().email('Invalid email').required('Required'),
@@ -10,6 +12,10 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginComponent = () => {
+	const [loginError, setLoginError] = useState('');
+	const handleCloseModal = () => {
+		setLoginError('');
+	};
 	return (
 		<div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
 			<div className="bg-secondayBackground shadow-2xl rounded p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
@@ -22,8 +28,17 @@ const LoginComponent = () => {
 						password: '',
 					}}
 					validationSchema={LoginSchema}
-					onSubmit={(values) => {
-						console.log(values);
+					onSubmit={async (values, { setSubmitting }) => {
+						setSubmitting(true);
+						const { email, password } = values;
+						const { data, error } = await login(email, password);
+						if (data) {
+							console.log(data);
+							// Redirect the user to the desired page after successful login
+						} else {
+							setLoginError(error);
+						}
+						setSubmitting(false);
 					}}
 				>
 					{({ errors, touched }) => (
@@ -37,14 +52,14 @@ const LoginComponent = () => {
 								</label>
 								<Field
 									className={`font-inter shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-										errors.email && touched.email ? 'border-red-500' : ''
+										errors.email && touched.email ? 'border-red-400' : ''
 									}`}
 									name="email"
 									type="email"
 									placeholder="Email"
 								/>
 								{errors.email && touched.email ? (
-									<p className="font-inter text-red-500 text-xs italic">
+									<p className="font-inter text-red-400 text-xs mt-2">
 										{errors.email}
 									</p>
 								) : null}
@@ -58,14 +73,14 @@ const LoginComponent = () => {
 								</label>
 								<Field
 									className={`font-inter shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-										errors.password && touched.password ? 'border-red-500' : ''
+										errors.password && touched.password ? 'border-red-400' : ''
 									}`}
 									name="password"
 									type="password"
 									placeholder="Password"
 								/>
 								{errors.password && touched.password ? (
-									<p className="font-inter text-red-500 text-xs italic">
+									<p className="font-inter text-red-400 text-xs mt-2">
 										{errors.password}
 									</p>
 								) : null}
@@ -100,6 +115,9 @@ const LoginComponent = () => {
 					&copy;2023 Rupi Corp. All rights reserved.
 				</p>
 			</div>
+			{loginError && (
+				<ErrorModal message={loginError} onClose={handleCloseModal} />
+			)}
 		</div>
 	);
 };

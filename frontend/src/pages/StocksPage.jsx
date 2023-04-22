@@ -7,7 +7,7 @@ import LineData from '../components/charts/lineData.json';
 import HistogramGraph from '../components/charts/HistogramGraph';
 import histogramData from '../components/charts/histogramData.json';
 
-function DashboardPage() {
+function StocksPage() {
 	return (
 		<DashboardLayout>
 			<div className="flex justify-center mt-10">
@@ -73,4 +73,4 @@ function DashboardPage() {
 	);
 }
 
-export default DashboardPage;
+export default StocksPage;
