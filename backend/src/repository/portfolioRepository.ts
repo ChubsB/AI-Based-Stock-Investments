@@ -1,6 +1,13 @@
 import { Model } from 'mongoose';
 import { IPortfolio, Portfolio } from '../models/portfolio';
 
+export type PortfolioInput = {
+	userId: IPortfolio['userId'];
+	name: IPortfolio['name'];
+	riskLevel: IPortfolio['riskLevel'];
+	stocks: IPortfolio['stocks'];
+};
+
 export type CreatePortfolioInput = Omit<IPortfolio, '_id'>;
 
 export class PortfolioRepository {
@@ -10,7 +17,7 @@ export class PortfolioRepository {
 		this.model = Portfolio;
 	}
 
-	async create(portfolioData: CreatePortfolioInput): Promise<IPortfolio> {
+	async create(portfolioData: PortfolioInput): Promise<IPortfolio> {
 		return this.model.create(portfolioData);
 	}
 

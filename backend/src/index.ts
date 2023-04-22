@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import * as logger from './services/loggingService';
 import { logEndpoints } from './services/expressUtilsService';
 import { userRouter } from './controllers/userController';
-import { portfolioRouter } from './controllers/portfolioController';
+import portfolioRouter from './controllers/portfolioController';
 import indexRouter from './controllers/indexController';
 import {Company} from './models/company'
 import priceHistoryRouter from './controllers/priceHistoryController';
@@ -13,6 +13,7 @@ import standingRouter from './controllers/standingController';
 import { scheduleStockDataPostRequest, fetchKSE100Data, SingleFillCompany, SingleFillIndex } from './services/crons/stockDataCron';
 import { populateBiggestGainers, populateBiggestLosers, populateMostActive } from './services/crons/standingPopulatingCron';
 import cors from 'cors';
+import { removeDuplicateRecords } from './helpers/removeDuplicates';
 
 dotenv.config();
 
@@ -85,5 +86,6 @@ app.listen(config.server.port, () => {
 // populateBiggestGainers()
 // populateBiggestLosers()
 // populateMostActive()
+// removeDuplicateRecords()
 logEndpoints(app);
 

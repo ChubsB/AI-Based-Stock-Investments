@@ -16,7 +16,7 @@ export class KSE100Repository {
           $gte: startDate,
           $lte: endDate,
         },
-      });
+      }).sort({dates_: 1});
       return data;
     } catch (error) {
       console.error('Error fetching KSE100 data within date range:', error);
