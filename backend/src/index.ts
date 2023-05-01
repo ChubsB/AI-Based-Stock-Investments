@@ -13,7 +13,7 @@ import standingRouter from './controllers/standingController';
 import { scheduleStockDataPostRequest, fetchKSE100Data, SingleFillCompany, SingleFillIndex } from './services/crons/stockDataCron';
 import { populateBiggestGainers, populateBiggestLosers, populateMostActive } from './services/crons/standingPopulatingCron';
 import cors from 'cors';
-import { removeDuplicateRecords } from './helpers/removeDuplicates';
+import { removeDuplicateRecords, removeDuplicatesFromAllCompanies } from './helpers/removeDuplicates';
 
 dotenv.config();
 
@@ -83,9 +83,11 @@ app.listen(config.server.port, () => {
 
 // SingleFillIndex()
 // SingleFillCompany()
+// removeDuplicateRecords()
+// removeDuplicatesFromAllCompanies()
+
 // populateBiggestGainers()
 // populateBiggestLosers()
 // populateMostActive()
-// removeDuplicateRecords()
 logEndpoints(app);
 

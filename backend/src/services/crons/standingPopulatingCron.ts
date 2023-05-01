@@ -110,14 +110,19 @@ export async function populateMostActive() {
   
 	// Clear the existing most active collection
 	await mostActiveRepository.clear();
+
   
 	for (const company of companies) {
 	  const priceHistoryRepository = new PriceHistoryRepository(company.symbol);
   
-	  const latestPriceData = await priceHistoryRepository.findLatestPriceData();
+	  const previousDate = new Date();
+		previousDate.setDate(previousDate.getDate() - 1);
+
+		const latestPriceData = await priceHistoryRepository.findLatestPriceData();
+		const previousCloseData = await priceHistoryRepository.findPreviousClose(latestPriceData.Date_);
   
-	  if (latestPriceData) {
-		const previousClose = latestPriceData.Close;
+	  if (latestPriceData && previousCloseData) {
+		const previousClose = previousCloseData.Close;
 		const priceChange = latestPriceData.Close - previousClose;
 		const priceChangeP = (priceChange / previousClose) * 100;
   
