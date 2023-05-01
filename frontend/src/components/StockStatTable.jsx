@@ -31,7 +31,7 @@ function StockStatTable({ data }) {
 						<td
 							className={`px-6 py-2 text-center whitespace-nowrap text-primary text-sm hover:shadow-lg hover:z-10 transition-all duration-200 ${
 								row.priceChangeP > 0
-									? 'text-green-600'
+									? 'text-success'
 									: row.priceChangeP < 0
 									? 'text-red-600'
 									: 'text-gray-500'
