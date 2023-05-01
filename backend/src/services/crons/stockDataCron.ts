@@ -163,6 +163,16 @@ export const SingleFillCompany = async () => {
 	}).catch((error) => {
 		console.error('Error populating biggest gainers:', error);
 	});
+	populateBiggestLosers().then(() => {
+		console.log('Biggest losers populated.');
+	}).catch((error) => {
+		console.error('Error populating biggest losers:', error);
+	});
+	populateMostActive().then(() => {
+		console.log('Most active populated.');
+	}).catch((error) => {
+		console.error('Error populating most active:', error);
+	});
 }
 
 

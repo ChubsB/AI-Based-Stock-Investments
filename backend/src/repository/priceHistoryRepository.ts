@@ -28,7 +28,7 @@ export class PriceHistoryRepository implements IPriceHistoryRepository {
 
   async findWithinDateRange(startDate: Date, endDate: Date): Promise<IPriceHistory[]> {
     const Model = getPriceHistoryModel(this.collectionName);
-    return await Model.find({ Date_: { $gte: startDate, $lte: endDate } }).exec();
+    return await Model.find({ Date_: { $gte: startDate, $lte: endDate } }).sort({ Date_: 1 }).exec();
   }  
 
   async findLatestPriceData(): Promise<IPriceHistory | null> {
