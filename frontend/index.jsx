@@ -1,13 +1,16 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 // eslint-disable-next-line import/extensions
-import App from './src/App.jsx';
+import App from './src/app';
+import { AuthProvider } from './src/context/AuthContext';
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById('root'));
 
 root.render(
-  <BrowserRouter>
-    <App></App>
-  </BrowserRouter>
+	<AuthProvider>
+		<BrowserRouter>
+			<App></App>
+		</BrowserRouter>
+	</AuthProvider>
 );
