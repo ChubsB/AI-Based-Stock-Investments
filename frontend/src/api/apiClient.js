@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 //baseURL: 'https://your-backend-api-url.com',
 //baseURL: '',
@@ -23,6 +24,18 @@ export function setAuthToken(token) {
 
 export function getAuthToken() {
   return localStorage.getItem('auth_token');
+}
+
+export function isTokenValid() {
+  const token = getAuthToken();
+  if (!token) return false;
+  try {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+    return decoded.exp > currentTime;
+  } catch (err) {
+    return false;
+  }
 }
 
 export default apiClient;
