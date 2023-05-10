@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../layouts/DashboardLayout';
 import InfoBox from '../components/InfoBox';
 import PortfolioBox from '../components/PortfolioBox';
@@ -6,8 +6,21 @@ import LineGraph from '../components/charts/LineGraph';
 import LineData from '../components/charts/lineData.json';
 import HistogramGraph from '../components/charts/HistogramGraph';
 import histogramData from '../components/charts/histogramData.json';
+import { getPortfolioList } from '../api/portfolio';
 
 function DashboardPage() {
+	const [activePortfolios, setActivePortfolios] = useState(0);
+
+	useEffect(() => {
+		async function fetchData() {
+			const { data, error } = await getPortfolioList();
+			if (!error && data) {
+				setActivePortfolios(data.length);
+			}
+		}
+		fetchData();
+	}, []);
+
 	return (
 		<DashboardLayout>
 			<div className="flex justify-center mt-10">
@@ -27,7 +40,11 @@ function DashboardPage() {
 						title="Projected Value (Monthly)"
 						value="Rs 1,284,500"
 					></InfoBox>
-					<InfoBox width="20" title="Active Portfolios" value="3"></InfoBox>
+					<InfoBox
+						width="20"
+						title="Active Portfolios"
+						value={activePortfolios}
+					></InfoBox>
 				</div>
 			</div>
 			<div className="flex justify-around h-1/2 mt-8">

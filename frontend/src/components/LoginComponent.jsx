@@ -6,6 +6,7 @@ import 'tailwindcss/tailwind.css';
 import { login } from '../api/users';
 import ErrorModal from './ErrorModal';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const LoginSchema = Yup.object().shape({
 	email: Yup.string().email('Invalid email').required('Required'),
@@ -13,6 +14,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginComponent = () => {
+	const { update } = useAuth();
 	const [loginError, setLoginError] = useState('');
 	const handleCloseModal = () => {
 		setLoginError('');
@@ -36,6 +38,7 @@ const LoginComponent = () => {
 						const { data, error } = await login(email, password);
 						if (data) {
 							// Redirect the user to the desired page after successful login
+							update({ isAuthenticated: true });
 							navigate('/dashboard');
 						} else {
 							setLoginError(error);

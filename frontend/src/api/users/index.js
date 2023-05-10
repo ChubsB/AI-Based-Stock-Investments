@@ -9,6 +9,7 @@ export async function login(email, password) {
 		});
 		const { data } = response;
 		setAuthToken(data.token);
+		localStorage.setItem('userId', data.user._id);
 		return { data, error: null };
 	} catch (error) {
 		const errorMessage = error.response?.data?.message || error.message;
