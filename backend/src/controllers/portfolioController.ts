@@ -20,7 +20,7 @@ portfolioRouter.post('/create', async (req, res) => {
     return res.status(404).json({ error: 'User not found' });
   }
 
-  const portfolioData: PortfolioInput = { userId, name, riskLevel, stocks };
+  const portfolioData: PortfolioInput = { userId, name, riskLevel, stocks, creationDate: '' };
   const portfolio = await portfolioRepo.create(portfolioData);
   res.status(201).json(portfolio);
 });
