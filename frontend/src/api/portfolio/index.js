@@ -1,12 +1,9 @@
 import apiClient from '../apiClient';
 
-export async function getPortfolioList(userId) {
+export async function getPortfolioList() {
   try {
-    // const response = await apiClient.get(
-    //   `/portfolios/${userId}`
-    // );
 	const response = await apiClient.get(
-		  `/portfolios/64229b5a265fd76e45965214`
+		  `/portfolios/${localStorage.getItem('userId')}`
 		);
     const { data } = response;
     return { data, error: null };

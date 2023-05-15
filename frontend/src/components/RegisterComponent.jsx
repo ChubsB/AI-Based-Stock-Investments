@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
 import { signup } from '../api/users';
+import { useAuth } from '../contexts/AuthContext';
 
 const RegisterSchema = Yup.object().shape({
 	fullName: Yup.string().required('Required'),
@@ -12,6 +13,7 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const RegisterComponent = () => {
+	const { update } = useAuth();
 	const navigate = useNavigate();
 	return (
 		<div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
@@ -28,13 +30,14 @@ const RegisterComponent = () => {
 						email: '',
 						password: '',
 					}}
-					validationSchema={LoginSchema}
+					validationSchema={RegisterSchema}
 					onSubmit={async (values) => {
 						const { fullName, email, password } = values;
 						const { data, error } = await signup(fullName, email, password);
 						if (error) {
 							console.error('Error:', error);
 						} else {
+							update({ isAuthenticated: true });
 							navigate('/dashboard');
 						}
 					}}

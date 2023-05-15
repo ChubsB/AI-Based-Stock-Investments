@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../layouts/DashboardLayout';
 import InfoBox from '../components/InfoBox';
 import PortfolioBox from '../components/PortfolioBox';
@@ -6,8 +6,45 @@ import LineGraph from '../components/charts/LineGraph';
 import LineData from '../components/charts/lineData.json';
 import HistogramGraph from '../components/charts/HistogramGraph';
 import histogramData from '../components/charts/histogramData.json';
+import { getPortfolioList } from '../api/portfolio';
+import { getPriceHistory } from '../api/priceHistory';
+import { getPortfolioValue, getCurrentPortfolioValue } from '../helpers/PortfolioValuation';
 
 function DashboardPage() {
+	const [activePortfolios, setActivePortfolios] = useState(0);
+	const [totalNetworth, setTotalNetworth] = useState(0);
+	const [currentValue, setCurrentValue] = useState(0);
+
+	useEffect(() => {
+		async function fetchData() {
+			const { data, error } = await getPortfolioList();
+			if (!error && data) {
+				setActivePortfolios(data.length);
+			}
+		}
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			const { data, error } = await getPortfolioValue();
+			if (!error && data) {
+				setTotalNetworth(data);
+			}
+		}
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			const { data, error } = await getCurrentPortfolioValue();
+			if (!error && data) {
+				setCurrentValue(data);
+			}
+		}
+		fetchData();
+	}, []);
+
 	return (
 		<DashboardLayout>
 			<div className="flex justify-center mt-10">
@@ -15,19 +52,23 @@ function DashboardPage() {
 					<InfoBox
 						width="20"
 						title="Total Amount Invested"
-						value="Rs 854,500"
+						value={`Rs ${totalNetworth.toLocaleString()}`}  
 					></InfoBox>
 					<InfoBox
 						width="20"
 						title="Current Value"
-						value="Rs 1,254,500"
+						value={`Rs ${currentValue.toLocaleString()}`}  
 					></InfoBox>
 					<InfoBox
 						width="20"
 						title="Projected Value (Monthly)"
-						value="Rs 1,284,500"
+						value="Rs N/A"
 					></InfoBox>
-					<InfoBox width="20" title="Active Portfolios" value="3"></InfoBox>
+					<InfoBox
+						width="20"
+						title="Active Portfolios"
+						value={activePortfolios}
+					></InfoBox>
 				</div>
 			</div>
 			<div className="flex justify-around h-1/2 mt-8">
