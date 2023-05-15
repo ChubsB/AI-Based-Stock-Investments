@@ -6,7 +6,8 @@ export type PortfolioInput = {
 	name: IPortfolio['name'];
 	riskLevel: IPortfolio['riskLevel'];
 	stocks: IPortfolio['stocks'];
-};
+	creationDate: IPortfolio['creationDate'];
+  };
 
 export type CreatePortfolioInput = Omit<IPortfolio, '_id'>;
 
@@ -18,8 +19,9 @@ export class PortfolioRepository {
 	}
 
 	async create(portfolioData: PortfolioInput): Promise<IPortfolio> {
-		return this.model.create(portfolioData);
-	}
+		const currentDate = new Date().toISOString().split('T')[0];
+		return this.model.create({ ...portfolioData, creationDate: currentDate });
+	  }
 
 	async findById(id: string): Promise<IPortfolio | null> {
 		return this.model.findById(id);

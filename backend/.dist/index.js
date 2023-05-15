@@ -28,31 +28,79 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const logger = __importStar(require("./library/Logging"));
-const user_routes_1 = __importDefault(require("./routes/user_routes"));
-// import { initDB } from './dbconfig';
+const config_1 = require("./config/config");
+const mongoose_1 = __importDefault(require("mongoose"));
+const logger = __importStar(require("./services/loggingService"));
+const expressUtilsService_1 = require("./services/expressUtilsService");
+const userController_1 = require("./controllers/userController");
+const portfolioController_1 = __importDefault(require("./controllers/portfolioController"));
+const indexController_1 = __importDefault(require("./controllers/indexController"));
+const company_1 = require("./models/company");
+const priceHistoryController_1 = __importDefault(require("./controllers/priceHistoryController"));
+const standingController_1 = __importDefault(require("./controllers/standingController"));
+const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT;
-/**MIDDLEWARES */
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
+app.use((0, cors_1.default)());
+mongoose_1.default.set("strictQuery", false);
+mongoose_1.default.connect(config_1.config.mongo.url, { retryWrites: true, w: 'majority' })
+    .then(() => {
+    logger.info('Mongo connected successfully.');
+    StartServer();
+})
+    .catch((error) => logger.error(error));
+mongoose_1.default.pluralize(null);
+const StartServer = () => {
+    app.use((req, res, next) => {
+        logger.info(`Incomming - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
+        res.on('finish', () => {
+            logger.info(`Result - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - STATUS: [${res.statusCode}]`);
+        });
+        next();
+    });
+    app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+        if (req.method == 'OPTIONS') {
+            res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+            return res.status(200).json({});
+        }
+        next();
+    });
+};
 app.get('/health-check', (req, res) => {
-    logger.info('[SERVER]: /health-check endpoint pinged');
     res.send('Rupi Backend, STATUS : OK');
 });
-app.listen(port, () => {
-    logger.info(`[SERVER]: Server is running at http://localhost:${port}`);
+app.post('/company', (req, res) => {
+    for (let i = 0; i < req.body.length; i++) {
+        company_1.Company.create(req.body[i]);
+        logger.info('Created: ' + req.body[i].symbol);
+    }
+    res.status(201).send("Complete");
 });
-app.use('/user', user_routes_1.default);
-/**ROUTES */
-// app.use('/account-details', userRouter)
-// initDB().then(() => {
-//     console.log("⚡️[database]: Sucessful connection initiated.")
-//     app.listen(port, () => {
-//         console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-//     })
-// }).catch((err) => {
-//     console.error(err)
-// })
+app.use('/users', userController_1.userRouter);
+app.use('/portfolios', portfolioController_1.default);
+app.use('/price-history', priceHistoryController_1.default);
+app.use('/index', indexController_1.default);
+app.use('/standing', standingController_1.default);
+app.use((req, res, next) => {
+    const error = new Error('Not found');
+    logger.error('' + error);
+    res.status(404).json({
+        message: error.message
+    });
+});
+app.listen(config_1.config.server.port, () => {
+    logger.info(`Server is running at http://localhost:${config_1.config.server.port}`);
+});
+// SingleFillIndex()
+// SingleFillCompany()
+// removeDuplicateRecords()
+// removeDuplicatesFromAllCompanies()
+// populateBiggestGainers()
+// populateBiggestLosers()
+// populateMostActive()
+(0, expressUtilsService_1.logEndpoints)(app);
 //# sourceMappingURL=index.js.map

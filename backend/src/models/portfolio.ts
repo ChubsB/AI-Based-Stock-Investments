@@ -5,6 +5,7 @@ export interface IPortfolio extends Document {
   name: string;
   riskLevel: 'High' | 'Medium' | 'Low' | 'None';
   stocks: { symbol: string; quantity: number }[];
+  creationDate: string;
 }
 
 const PortfolioSchema = new Schema<IPortfolio>({
@@ -17,6 +18,7 @@ const PortfolioSchema = new Schema<IPortfolio>({
       quantity: { type: Number, required: true },
     },
   ],
+  creationDate: { type: String, required: true },
 });
 
 export const Portfolio = mongoose.model<IPortfolio>('Portfolio', PortfolioSchema);
