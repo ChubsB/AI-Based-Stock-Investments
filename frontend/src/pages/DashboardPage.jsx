@@ -8,12 +8,18 @@ import HistogramGraph from '../components/charts/HistogramGraph';
 import histogramData from '../components/charts/histogramData.json';
 import { getPortfolioList } from '../api/portfolio';
 import { getPriceHistory } from '../api/priceHistory';
-import { getPortfolioValue, getCurrentPortfolioValue } from '../helpers/PortfolioValuation';
+import SkeletonLoader from '../components/SkeletonLoader';
+import {
+	getPortfolioValue,
+	getCurrentPortfolioValue,
+	getMonthlyReturns,
+} from '../helpers/PortfolioValuation';
 
-function DashboardPage() {
+function DashboardPage() {  
 	const [activePortfolios, setActivePortfolios] = useState(0);
 	const [totalNetworth, setTotalNetworth] = useState(0);
 	const [currentValue, setCurrentValue] = useState(0);
+	const [monthlyReturns, setMonthlyReturns] = useState([]);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -45,6 +51,16 @@ function DashboardPage() {
 		fetchData();
 	}, []);
 
+	useEffect(() => {
+		async function fetchData() {
+			const data = await getMonthlyReturns();
+			if (data) {
+				setMonthlyReturns(data);
+			}
+		}
+		fetchData();
+	}, []);
+
 	return (
 		<DashboardLayout>
 			<div className="flex justify-center mt-10">
@@ -52,12 +68,12 @@ function DashboardPage() {
 					<InfoBox
 						width="20"
 						title="Total Amount Invested"
-						value={`Rs ${totalNetworth.toLocaleString()}`}  
+						value={`Rs ${totalNetworth.toLocaleString()}`}
 					></InfoBox>
 					<InfoBox
 						width="20"
 						title="Current Value"
-						value={`Rs ${currentValue.toLocaleString()}`}  
+						value={`Rs ${currentValue.toLocaleString()}`}
 					></InfoBox>
 					<InfoBox
 						width="20"
@@ -86,7 +102,11 @@ function DashboardPage() {
 						Monthly returns of each portfolio
 					</div>
 					<div className="w-full h-full">
-						<HistogramGraph data={histogramData} />
+						{monthlyReturns.length > 0 ? (
+							<HistogramGraph data={monthlyReturns} />
+						) : (
+							<SkeletonLoader />
+						)}
 					</div>
 				</div>
 			</div>
