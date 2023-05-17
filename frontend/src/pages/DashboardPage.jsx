@@ -8,12 +8,21 @@ import HistogramGraph from '../components/charts/HistogramGraph';
 import histogramData from '../components/charts/histogramData.json';
 import { getPortfolioList } from '../api/portfolio';
 import { getPriceHistory } from '../api/priceHistory';
-import { getPortfolioValue, getCurrentPortfolioValue } from '../helpers/PortfolioValuation';
+import SkeletonLoader from '../components/SkeletonLoader';
+import {
+	getPortfolioValue,
+	getCurrentPortfolioValue,
+	getMonthlyReturns,
+	getPortfolioStats,
+	getMonthlyTotalValues
+} from '../helpers/PortfolioValuation';
 
 function DashboardPage() {
 	const [activePortfolios, setActivePortfolios] = useState(0);
 	const [totalNetworth, setTotalNetworth] = useState(0);
 	const [currentValue, setCurrentValue] = useState(0);
+	const [monthlyReturns, setMonthlyReturns] = useState([]);
+	const [portfolioStats, setPortfolioStats] = useState([]);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -45,6 +54,36 @@ function DashboardPage() {
 		fetchData();
 	}, []);
 
+	useEffect(() => {
+		async function fetchData() {
+			const data = await getMonthlyReturns();
+			if (data) {
+				setMonthlyReturns(data);
+			}
+		}
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			const data = await getMonthlyTotalValues();
+			if (data) {
+				console.log("Dashboard", data)
+			}
+		}
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			const data = await getPortfolioStats();
+			if (data) {
+				setPortfolioStats(data);
+			}
+		}
+		fetchData();
+	}, []);
+
 	return (
 		<DashboardLayout>
 			<div className="flex justify-center mt-10">
@@ -52,12 +91,12 @@ function DashboardPage() {
 					<InfoBox
 						width="20"
 						title="Total Amount Invested"
-						value={`Rs ${totalNetworth.toLocaleString()}`}  
+						value={`Rs ${totalNetworth.toLocaleString()}`}
 					></InfoBox>
 					<InfoBox
 						width="20"
 						title="Current Value"
-						value={`Rs ${currentValue.toLocaleString()}`}  
+						value={`Rs ${currentValue.toLocaleString()}`}
 					></InfoBox>
 					<InfoBox
 						width="20"
@@ -86,30 +125,27 @@ function DashboardPage() {
 						Monthly returns of each portfolio
 					</div>
 					<div className="w-full h-full">
-						<HistogramGraph data={histogramData} />
+						{monthlyReturns.length > 0 ? (
+							<HistogramGraph data={monthlyReturns} />
+						) : (
+							<SkeletonLoader />
+						)}
 					</div>
 				</div>
 			</div>
 			<div className="flex flex-col items-center mt-28">
-				<div className="font-inter font-Bold text-3xl">Active Portfolios</div>
-				<div className="flex flex-row w-full h-[10%] justify-around mx-10 mt-10 mb-32">
-					<PortfolioBox
-						title="High Risk Portfolio"
-						value="Rs 854,500"
-						return="11%"
-					></PortfolioBox>
-					<PortfolioBox
-						title="Medium Risk Portfolio"
-						value="Rs 1,254,500"
-						return="11%"
-					></PortfolioBox>
-					<PortfolioBox
-						title="Low Risk Portfolio"
-						value="Rs 1,284,500"
-						return="11%"
-					></PortfolioBox>
-				</div>
-			</div>
+            <div className="font-inter font-Bold text-3xl">Active Portfolios</div>
+            <div className="flex flex-row w-full h-[10%] justify-around mx-10 mt-10 mb-32">
+                {portfolioStats.map((portfolio, index) => (
+                    <PortfolioBox
+                        key={index}
+                        title={portfolio.portfolioName}
+                        value={`Rs ${portfolio.currentValue}`}
+                        return={`${portfolio.monthlyReturn}%`}
+                    />
+                ))}
+            </div>
+        </div>
 		</DashboardLayout>
 	);
 }

@@ -103,7 +103,6 @@ function PortfolioPage() {
 			dateFormatterOptions
 		  );
 		  let monthlyValue = 0;
-		  console.log("Loop 1:", formattedStartDate,formattedEndDate)
 		  for (const stock of stocks) {
 			const symbol = stock.symbol;
 			const quantity = stock.quantity;
