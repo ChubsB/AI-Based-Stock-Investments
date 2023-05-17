@@ -40,7 +40,7 @@ const TestGraph = ({ data }) => {
 		},
 	];
 
-	console.log("Chart data", chartData)
+
 	return (
 		<div>
 			<div className='w-full flex justify-around mt-2'>

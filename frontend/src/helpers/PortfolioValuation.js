@@ -1,5 +1,15 @@
 import { getPortfolioList } from '../api/portfolio';
 import { getPriceHistory } from '../api/priceHistory';
+import {
+	format,
+	subYears,
+	startOfMonth,
+	endOfMonth,
+	eachMonthOfInterval,
+	isWeekend,
+	add,
+	sub,
+} from 'date-fns';
 
 function subtractDays(date, days) {
 	const copyDate = new Date(date);
@@ -98,7 +108,7 @@ export async function getCurrentPortfolioValue() {
 			}
 
 			if (priceHistory.length > 0) {
-				const price = priceHistory[priceHistory.length - 2]?.Close;
+				const price = priceHistory[priceHistory.length - 1]?.Close;
 				totalCurrentValue += price * quantity;
 			} else {
 				// Handle the case where the array is empty
@@ -166,9 +176,123 @@ export async function getMonthlyReturns() {
 		} else {
 			portfolioReturns.push({
 				portfolioName: portfolio.name,
-				monthlyReturn: parseFloat((monthlyReturn).toFixed(2)),
+				monthlyReturn: parseFloat(monthlyReturn.toFixed(2)),
 			});
 		}
 	}
 	return portfolioReturns;
+}
+
+export async function getPortfolioStats() {
+	// Get the portfolio list
+	let { data: portfolioList, error: portfolioError } = await getPortfolioList();
+
+	if (portfolioError) {
+		console.error('Failed to fetch portfolio list:', portfolioError);
+		return;
+	}
+
+	// Prepare an array for portfolio stats
+	let portfolioStats = [];
+
+	// Iterate over each portfolio in the list
+	for (let portfolio of portfolioList) {
+		// For each portfolio, get the current value
+		let { data: currentValue, error: currentValueError } =
+			await getCurrentPortfolioValue(portfolio);
+		if (currentValueError) {
+			console.error(
+				`Failed to fetch current value for portfolio ${portfolio.portfolioName}:`,
+				currentValueError
+			);
+			continue; // Skip to the next portfolio
+		}
+
+		// Get the monthly return
+		let { data: monthlyReturn, error: monthlyReturnError } =
+			await getMonthlyReturn(portfolio);
+		if (monthlyReturnError) {
+			console.error(
+				`Failed to fetch monthly return for portfolio ${portfolio.portfolioName}:`,
+				monthlyReturnError
+			);
+			continue; // Skip to the next portfolio
+		}
+
+		// Add the stats for this portfolio to the array
+		portfolioStats.push({
+			portfolioName: portfolio.name,
+			currentValue: currentValue.toLocaleString(),
+			monthlyReturn: parseFloat(monthlyReturn.toFixed(2)),
+		});
+	}
+
+	// Return the portfolio stats
+	return portfolioStats;
+}
+
+// Function to adjust date to the nearest weekday
+const adjustToWeekday = (date) => {
+	if (isWeekend(date)) {
+		// If it's Saturday, subtract one day to make it Friday
+		// If it's Sunday, add one day to make it Monday
+		return date.getDay() === 6
+			? sub(date, { days: 1 })
+			: add(date, { days: 1 });
+	}
+	return date;
+};
+
+export async function getMonthlyTotalValues() {
+	let monthlyValues = [];
+	let oldestDate = new Date();
+	const { data: portfolioList, error: portfolioError } =
+		await getPortfolioList();
+	for (let portfolio of portfolioList) {
+		if (new Date(portfolio.creationDate) < oldestDate) {
+			oldestDate = new Date(portfolio.creationDate);
+		}
+	}
+
+	const currentDate = new Date();
+	const oneYearAgo = subYears(currentDate, 1);
+
+	const startDate =
+		oldestDate > oneYearAgo
+			? startOfMonth(oldestDate)
+			: startOfMonth(oneYearAgo);
+	const endDate = endOfMonth(currentDate);
+
+	const allMonths = eachMonthOfInterval({
+		start: startDate,
+		end: endDate,
+	});
+
+	for (let date of allMonths) {
+		let totalValue = 0;
+		for (let portfolio of portfolioList) {
+			if (new Date(portfolio.creationDate) <= date) {
+				console.log("Portfolio", portfolio)
+				for (let company of portfolio.stocks) {
+					const { data: priceHistory, error: priceError } = await getPriceHistory(
+						company.symbol,
+						format(adjustToWeekday(startOfMonth(date)), 'yyyy-MM-dd'),
+						format(adjustToWeekday(endOfMonth(date)), 'yyyy-MM-dd')
+					);
+					console.log("PRICES", priceHistory)
+					if (!priceError && priceHistory.length > 0) {
+						const price = priceHistory[priceHistory.length - 1]?.Close || 0;
+						totalValue += price * company.quantity;
+					}
+				}
+			}
+		}
+
+		monthlyValues.push({
+			date: format(date, 'yyyy-MM-dd'),
+			totalValue,
+		});
+	}
+
+	return monthlyValues;
 }

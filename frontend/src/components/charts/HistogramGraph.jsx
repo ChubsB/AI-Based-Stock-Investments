@@ -2,7 +2,6 @@ import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
 const HistogramGraph = ({ data }) => {
-	console.log("Graph", data)
     const graphData = data.map(item => ({
         portfolioName: item.portfolioName,
         monthlyReturn: item.monthlyReturn
@@ -13,7 +12,7 @@ const HistogramGraph = ({ data }) => {
             data={graphData}
             keys={['monthlyReturn']}
             indexBy="portfolioName"
-            margin={{ top: 50, right: 15, bottom: 50, left: 120 }}
+            margin={{ top: 50, right: 15, bottom: 50, left: 125 }}
             padding={0.4}
             layout="horizontal"
             valueScale={{ type: 'linear' }}

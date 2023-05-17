@@ -13,13 +13,16 @@ import {
 	getPortfolioValue,
 	getCurrentPortfolioValue,
 	getMonthlyReturns,
+	getPortfolioStats,
+	getMonthlyTotalValues
 } from '../helpers/PortfolioValuation';
 
-function DashboardPage() {  
+function DashboardPage() {
 	const [activePortfolios, setActivePortfolios] = useState(0);
 	const [totalNetworth, setTotalNetworth] = useState(0);
 	const [currentValue, setCurrentValue] = useState(0);
 	const [monthlyReturns, setMonthlyReturns] = useState([]);
+	const [portfolioStats, setPortfolioStats] = useState([]);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -56,6 +59,26 @@ function DashboardPage() {
 			const data = await getMonthlyReturns();
 			if (data) {
 				setMonthlyReturns(data);
+			}
+		}
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			const data = await getMonthlyTotalValues();
+			if (data) {
+				console.log("Dashboard", data)
+			}
+		}
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			const data = await getPortfolioStats();
+			if (data) {
+				setPortfolioStats(data);
 			}
 		}
 		fetchData();
@@ -111,25 +134,18 @@ function DashboardPage() {
 				</div>
 			</div>
 			<div className="flex flex-col items-center mt-28">
-				<div className="font-inter font-Bold text-3xl">Active Portfolios</div>
-				<div className="flex flex-row w-full h-[10%] justify-around mx-10 mt-10 mb-32">
-					<PortfolioBox
-						title="High Risk Portfolio"
-						value="Rs 854,500"
-						return="11%"
-					></PortfolioBox>
-					<PortfolioBox
-						title="Medium Risk Portfolio"
-						value="Rs 1,254,500"
-						return="11%"
-					></PortfolioBox>
-					<PortfolioBox
-						title="Low Risk Portfolio"
-						value="Rs 1,284,500"
-						return="11%"
-					></PortfolioBox>
-				</div>
-			</div>
+            <div className="font-inter font-Bold text-3xl">Active Portfolios</div>
+            <div className="flex flex-row w-full h-[10%] justify-around mx-10 mt-10 mb-32">
+                {portfolioStats.map((portfolio, index) => (
+                    <PortfolioBox
+                        key={index}
+                        title={portfolio.portfolioName}
+                        value={`Rs ${portfolio.currentValue}`}
+                        return={`${portfolio.monthlyReturn}%`}
+                    />
+                ))}
+            </div>
+        </div>
 		</DashboardLayout>
 	);
 }
