@@ -1,5 +1,5 @@
 const { spawn } = require('child_process');
-const jsonData = require('./Engro.json');
+const jsonData = require('./test.json');
 
 const pyfile = spawn('python', ['engro_arima.py']);
 
