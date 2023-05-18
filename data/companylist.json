@@ -1,103 +1,509 @@
-[
-	{
-		"id": 1,
-		"symbol": "ABL",
-		"name": "Allied Bank Ltd."
-	},
-	{
-		"id": 2,
-		"symbol": "ABOT",
-		"name": "Abbott Laboratories (Pak) Ltd."
-	},
-	{
-		"id": 3,
-		"symbol": "AGP",
-		"name": "AGP Ltd."
-	},
-	{
-		"id": 4,
-		"symbol": "AICL",
-		"name": "Adamjee Insurance Company Ltd."
-	},
-	{
-		"id": 5,
-		"symbol": "AIRLINK",
-		"name": "Air Link Communication Ltd"
-	},
-	{
-		"id": 6,
-		"symbol": "AKBL",
-		"name": "Askari Bank Ltd."
-	},
-	{
-		"id": 7,
-		"symbol": "APL",
-		"name": "Attock Petroleum Ltd."
-	},
-	{
-		"id": 8,
-		"symbol": "ARPL",
-		"name": "Archroma Pakistan Ltd."
-	},
-	{
-		"id": 9,
-		"symbol": "ATLH",
-		"name": "Atlas Honda Ltd."
-	},
-	{
-		"id": 10,
-		"symbol": "ATRL",
-		"name": "Attock Refinery Ltd."
-	},
-	//newwwwwwwwwwwwwwwwwwwwwww
-	{
-		"id": 11,
-		"symbol": "AVN",
-		"name": "Avanceon Ltd. Consolidated"
-	},
-	{
-		"id": 12,
-		"symbol": "BAFL",
-		"name": "Bank Alfalah Ltd."
-	},
-	{
-		"id": 13,
-		"symbol": "BAHL",
-		"name": "Bank AL-Habib Ltd."
-	},
-	{
-		"id": 14,
-		"symbol": "BNWM",
-		"name": "Bannu Woollen Mills Ltd."
-	},
-	{
-		"id": 15,
-		"symbol": "BOP",
-		"name": "The Bank Of Punjab"
-	},
-	{
-		"id": 16,
-		"symbol": "CEPB",
-		"name": "Century Paper & Board Mills Ltd."
-	},
-	{
-		"id": 17,
-		"symbol": "CHCC",
-		"name": "Cherat Cement Company Ltd."
-	},
-	{
-		"id": 18,
-		"symbol": "CNERGY",
-		"name": "Cnergyico Pk Ltd. (Byco Petroleum)"
-	},
-	{
-		"id": 19,
-		"symbol": "COLG",
-		"name": "Colgate Palmolive (Pak) Ltd."
-	},
-	{
-		"id": 20,
-		"symbol": "DAWH",
-		"name": "Dawood Hercules Corporation Ltd."
-	},
-]
+{
+	"companies": [
+		{
+			"symbol": "ABL",
+			"name": "Allied Bank Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "ABOT",
+			"name": "Abbott Laboratories (Pak) Limited",
+			"sector": "Pharmaceuticals"
+		},
+		{
+			"symbol": "AGP",
+			"name": "AGP limited",
+			"sector": "Pharmaceuticals"
+		},
+		{
+			"symbol": "AICL",
+			"name": "Adamjee Insurance Company Limited",
+			"sector": "Insurance"
+		},
+		{
+			"symbol": "AIRLINK",
+			"name": "Air Link Communication Limited",
+			"sector": "Technology and Communication"
+		},
+		{
+			"symbol": "AKBL",
+			"name": "Askari Bank Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "APL",
+			"name": "Attock Petroleum Limited",
+			"sector": "Oil & Gas Marketing Companies"
+		},
+		{
+			"symbol": "ARPL",
+			"name": "Archroma Pakistan Limited",
+			"sector": "Chemical"
+		},
+		{
+			"symbol": "ATLH",
+			"name": "Atlas Honda Limited",
+			"sector": "Automobile Assembler"
+		},
+		{
+			"symbol": "ATRL",
+			"name": "Attock Refinery Limited",
+			"sector": "Refinery"
+		},
+		{
+			"symbol": "AVN",
+			"name": "Avanceon Limited Consolidated",
+			"sector": "Technology and Communication"
+		},
+		{
+			"symbol": "BAFL",
+			"name": "Bank Alfalah Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "BAHL",
+			"name": "Bank AL-Habib Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "BNWM",
+			"name": "Bannu Woollen Mills Limited",
+			"sector": "Woollen"
+		},
+		{
+			"symbol": "BOP",
+			"name": "Bank of Punjab",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "CEPB",
+			"name": "Century Paper & Board Mills Limited",
+			"sector": "Paper and Board"
+		},
+		{
+			"symbol": "CHCC",
+			"name": "Cherat Cement Company Limited",
+			"sector": "Cement"
+		},
+		{
+			"symbol": "CNERGY",
+			"name": "Cnergyico Pk Limited",
+			"sector": "Refinery"
+		},
+		{
+			"symbol": "COLG",
+			"name": "Colgate-Palmolive (Pakistan) Limited",
+			"sector": "Chemical"
+		},
+		{
+			"symbol": "DAWH",
+			"name": "Dawood Hercules Corporation Limited",
+			"sector": "Inv. banks / Inv. Cos. / Securities Cos."
+		},
+		{
+			"symbol": "DCR",
+			"name": "Dolmen City Reit",
+			"sector": "Real Estate Investment Trust"
+		},
+		{
+			"symbol": "DGKC",
+			"name": "D.G. Khan Cement Company Limited",
+			"sector": "Cement"
+		},
+		{
+			"symbol": "EFERT",
+			"name": "Engro Fertilizers Limited",
+			"sector": "Fertilizer"
+		},
+		{
+			"symbol": "EFUG",
+			"name": "EFU General Insurance Limited",
+			"sector": "Insurance"
+		},
+		{
+			"symbol": "ENGRO",
+			"name": "Engro Corporation Limited",
+			"sector": "Fertilizer"
+		},
+		{
+			"symbol": "EPCL",
+			"name": "Engro Polymer and Chemical Limited",
+			"sector": "Chemical"
+		},
+		{
+			"symbol": "FABL",
+			"name": "Faysal Bank Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "FATIMA",
+			"name": "Fatima Fertilizer Company Limited",
+			"sector": "Fertilizer"
+		},
+		{
+			"symbol": "FCCL",
+			"name": "Fauji Cement Company Limited",
+			"sector": "Cement"
+		},
+		{
+			"symbol": "FCEPL",
+			"name": "Frieslandcampina Engro Pakistan Limited",
+			"sector": "Food and Personal Care Products"
+		},
+		{
+			"symbol": "FFBL",
+			"name": "Fauji Fertilizer Bin Qasim Limited",
+			"sector": "Fertilizer"
+		},
+		{
+			"symbol": "FFC",
+			"name": "Fauji Fertilizer Company Limited",
+			"sector": "Fertilizer"
+		},
+		{
+			"symbol": "FHAM",
+			"name": "First Habib Modarba Limited",
+			"sector": "Modarabas"
+		},
+		{
+			"symbol": "GADT",
+			"name": "Gadoon Textile Mills Limited",
+			"sector": "Textile Spinning"
+		},
+		{
+			"symbol": "GATM",
+			"name": "Gul Ahmed Textile Mills Limited",
+			"sector": "Textile Composite"
+		},
+		{
+			"symbol": "GHGL",
+			"name": "Ghani Glass Limited",
+			"sector": "Glass and Ceramics"
+		},
+		{
+			"symbol": "GLAXO",
+			"name": "Glaxosmithkline (Pak) Limited",
+			"sector": "Pharmaceuticals"
+		},
+		{
+			"symbol": "HBL",
+			"name": "Habib Bank Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "HCAR",
+			"name": "Honda Atlas Cars (Pakistan) Limited",
+			"sector": "Automobile Assembler"
+		},
+		{
+			"symbol": "HGFA",
+			"name": "HBL Growth Fund - (A)",
+			"sector": "Close - End Mutual Fund"
+		},
+		{
+			"symbol": "HINOON",
+			"name": "Highnoon Laboratories Limited",
+			"sector": "Pharmaceuticals"
+		},
+		{
+			"symbol": "HMB",
+			"name": "Habib Metropolitan Bank Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "HUBC",
+			"name": "Hub Power Company Limited",
+			"sector": "Power Generation and Distribution"
+		},
+		{
+			"symbol": "IBFL",
+			"name": "Ibrahim Fibre Limited",
+			"sector": "Synthetic and RAYON"
+		},
+		{
+			"symbol": "ILP ",
+			"name": "Interloop Limited",
+			"sector": "Textile Composite"
+		},
+		{
+			"symbol": "INDU",
+			"name": "Indus Motor Company Limited",
+			"sector": "Automobile Assembler"
+		},
+		{
+			"symbol": "INIL",
+			"name": "International Industries Limited",
+			"sector": "Engineering"
+		},
+		{
+			"symbol": "ISL",
+			"name": "International Steels Limited",
+			"sector": "Engineering"
+		},
+		{
+			"symbol": "JVDC",
+			"name": "Javedan Corporation Limited",
+			"sector": "Property"
+		},
+		{
+			"symbol": "KAPCO",
+			"name": "Kot Addu Power Company Limited",
+			"sector": "Power Generation and Distribution"
+		},
+		{
+			"symbol": "KEL",
+			"name": "K-Electric Limited",
+			"sector": "Power Generation and Distribution"
+		},
+		{
+			"symbol": "KOHC",
+			"name": "Kohat Cement Company Limited",
+			"sector": "Cement"
+		},
+		{
+			"symbol": "KTML ",
+			"name": "Kohinoor Textile Mills Limited",
+			"sector": "Textile Composite"
+		},
+		{
+			"symbol": "LCI",
+			"name": "Lucky Core Industries Limited",
+			"sector": "Chemical"
+		},
+		{
+			"symbol": "LOTCHEM ",
+			"name": "Lotte Chemical (Pak) Limited",
+			"sector": "Chemical"
+		},
+		{
+			"symbol": "LUCK",
+			"name": "Lucky Cement Limited",
+			"sector": "Cement"
+		},
+		{
+			"symbol": "MARI",
+			"name": "Mari Petroleum Company Limited",
+			"sector": "Oil & Gas Exploration Companies"
+		},
+		{
+			"symbol": "MCB",
+			"name": "MCB Bank Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "MEBL",
+			"name": "Meezan Bank Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "MLCF",
+			"name": "Maple Leaf Cement Factory Limited",
+			"sector": "Cement"
+		},
+		{
+			"symbol": "MTL",
+			"name": "Millat Tractors Limited",
+			"sector": "Automobile Assembler"
+		},
+		{
+			"symbol": "MUGHAL",
+			"name": "Mughal Iron & Steels Industries Limited",
+			"sector": "Engineering"
+		},
+		{
+			"symbol": "MUREB",
+			"name": "Murree Brewery Company Limited",
+			"sector": "Food and Personal Care Products"
+		},
+		{
+			"symbol": "NATF",
+			"name": "National Foods Limited",
+			"sector": "Food and Personal Care Products"
+		},
+		{
+			"symbol": "NBP",
+			"name": "National Bank of Pakistan",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "NCL",
+			"name": "Nishat Chunian Limited",
+			"sector": "Textile Composite"
+		},
+		{
+			"symbol": "NESTLE",
+			"name": "Nestle Pakistan Limited",
+			"sector": "Food and Personal Care Products"
+		},
+		{
+			"symbol": "NML",
+			"name": "Nishat Mills Limited",
+			"sector": "Textile Composite"
+		},
+		{
+			"symbol": "NRL",
+			"name": "National Refinery Limited",
+			"sector": "Refinery"
+		},
+		{
+			"symbol": "OGDC",
+			"name": "Oil and Gas Development Company Limited",
+			"sector": "Oil and Gas Exploration Companies"
+		},
+		{
+			"symbol": "PAEL",
+			"name": "Pak Elektron Limited",
+			"sector": "Cable and Electrical Goods"
+		},
+		{
+			"symbol": "PAKT",
+			"name": "Pakistan Tobacco Company Limited",
+			"sector": "Tobacco"
+		},
+		{
+			"symbol": "PGLC",
+			"name": "Pak Gulf Leasing Company Limited",
+			"sector": "Leasing Companies"
+		},
+		{
+			"symbol": "PIBTL",
+			"name": "Pakistan International Bulk Terminal Limited",
+			"sector": "Transport"
+		},
+		{
+			"symbol": "PIOC",
+			"name": "Pioneer Cement Limited",
+			"sector": "Cement"
+		},
+		{
+			"symbol": "PKGS",
+			"name": "Packages Limited",
+			"sector": "Paper and Board"
+		},
+		{
+			"symbol": "POL",
+			"name": "Pakistan Oilfields Limited",
+			"sector": "Oil and Gas Exploration Companies"
+		},
+		{
+			"symbol": "POML",
+			"name": "Punjab Oil Mills Limited",
+			"sector": "Vanaspati and Allied Industries"
+		},
+		{
+			"symbol": "PPL",
+			"name": "Pakistan Petroleum Limited",
+			"sector": "Oil and Gas Exploration Companies"
+		},
+		{
+			"symbol": "PSEL",
+			"name": "Pakistan Services Limited",
+			"sector": "Miscellaneous"
+		},
+		{
+			"symbol": "PSMC",
+			"name": "Pak Suzuki Motor Company Limited",
+			"sector": "Automobile Assembler"
+		},
+		{
+			"symbol": "PSO",
+			"name": "Pakistan State Oil Company Limited",
+			"sector": "Oil Marketing Companies"
+		},
+		{
+			"symbol": "PSX",
+			"name": "Pakistan Stock Exchange Limited",
+			"sector": "Inv. banks / Inv. Cos. / Securities Cos."
+		},
+		{
+			"symbol": "PTC",
+			"name": "Paksitan Telecommunication Company Limited",
+			"sector": "Technology and Communication"
+		},
+		{
+			"symbol": "RMPL",
+			"name": "Rafhan Maize Products Company Limited",
+			"sector": "Food and Personal Care Products"
+		},
+		{
+			"symbol": "SCBPL",
+			"name": "Standard Chartered Bank Pakistan Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "SEARL",
+			"name": "The Searle Company Limited",
+			"sector": "Pharmaceuticals"
+		},
+		{
+			"symbol": "SHEL",
+			"name": "Shell Pakistan Limited",
+			"sector": "Oil & Gas Marketing Companies"
+		},
+		{
+			"symbol": "SHFA",
+			"name": "Shifa International Hospitals Limited",
+			"sector": "Miscellaneous"
+		},
+		{
+			"symbol": "SNGP",
+			"name": "Sui Northern Gas Pipelines Limited",
+			"sector": "Gas Distribution"
+		},
+		{
+			"symbol": "SML",
+			"name": "Shakerganj Limited",
+			"sector": "Sugar and Allied Industries"
+		},
+		{
+			"symbol": "SNGP",
+			"name": "Sui Northern Gas Pipelines Limited",
+			"sector": "Oil & Gas Marketing Companies"
+		},
+		{
+			"symbol": "SRVI",
+			"name": "Service Industries Limited",
+			"sector": "Leather and Tanneries"
+		},
+		{
+			"symbol": "SYS",
+			"name": "Systems Limited",
+			"sector": "Technology and Communication"
+		},
+		{
+			"symbol": "TGL",
+			"name": "Tariq Glass Industries Limited",
+			"sector": "Glass and Ceramics"
+		},
+		{
+			"symbol": "THALL",
+			"name": "Thal Limited",
+			"sector": "Automobile Parts and Accessories"
+		},
+		{
+			"symbol": "TRG",
+			"name": "TRG Pakistan Limited",
+			"sector": "Technology and Communication"
+		},
+		{
+			"symbol": "UBL",
+			"name": "United Bank Limited",
+			"sector": "Commercial Banks"
+		},
+		{
+			"symbol": "UNITY",
+			"name": "Unity Foods Limited",
+			"sector": "Food and Personal Care Products"
+		},
+		{
+			"symbol": "UPFL",
+			"name": "Unilever Pakistan Foods Limited",
+			"sector": "Food and Personal Care Products"
+		},
+		{
+			"symbol": "YOUW",
+			"name": "Yousuf Weaving Mills Limited",
+			"sector": "Textile Weaving"
+		}
+	]
+}
