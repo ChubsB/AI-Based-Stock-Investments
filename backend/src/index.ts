@@ -14,6 +14,7 @@ import { scheduleStockDataPostRequest, fetchKSE100Data, SingleFillCompany, Singl
 import { populateBiggestGainers, populateBiggestLosers, populateMostActive } from './services/crons/standingPopulatingCron';
 import cors from 'cors';
 import { removeDuplicateRecords, removeDuplicatesFromAllCompanies } from './helpers/removeDuplicates';
+import { fetchCompanyData } from './services/crons/stockPredictionCron';
 
 dotenv.config();
 
@@ -91,3 +92,4 @@ app.listen(config.server.port, () => {
 // populateMostActive()
 logEndpoints(app);
 
+// fetchCompanyData()
