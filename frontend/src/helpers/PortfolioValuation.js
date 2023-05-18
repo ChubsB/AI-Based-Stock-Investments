@@ -272,14 +272,12 @@ export async function getMonthlyTotalValues() {
 		let totalValue = 0;
 		for (let portfolio of portfolioList) {
 			if (new Date(portfolio.creationDate) <= date) {
-				console.log("Portfolio", portfolio)
 				for (let company of portfolio.stocks) {
 					const { data: priceHistory, error: priceError } = await getPriceHistory(
 						company.symbol,
 						format(adjustToWeekday(startOfMonth(date)), 'yyyy-MM-dd'),
 						format(adjustToWeekday(endOfMonth(date)), 'yyyy-MM-dd')
 					);
-					console.log("PRICES", priceHistory)
 					if (!priceError && priceHistory.length > 0) {
 						const price = priceHistory[priceHistory.length - 1]?.Close || 0;
 						totalValue += price * company.quantity;

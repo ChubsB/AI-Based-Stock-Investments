@@ -107,7 +107,7 @@ function MarketPage() {
 					)}
 				</div>
 			</div>
-			<div className="flex justify-around w-full mt-10">
+			<div className="flex justify-around w-full my-10">
 				<div className="bg-white rounded">
 					<div className="flex mt-6 ml-6">
 						<MdCompareArrows className="text-4xl mr-2 animate-pulse text-info" />
