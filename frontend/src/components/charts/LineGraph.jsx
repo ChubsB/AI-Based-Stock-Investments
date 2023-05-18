@@ -1,11 +1,24 @@
 import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
+const transformData = (data) => {
+	return [
+	  {
+		id: "totalValue",
+		data: data.map((item) => ({
+		  x: item.date,
+		  y: item.totalValue
+		})),
+	  },
+	];
+  };
+
 
 const LineGraph = ({data}) => {
+	const transformedData = transformData(data);
 	return (
 			<ResponsiveLine
-				data={data}
+				data={transformedData}
 				margin={{ top: 50, right: 100, bottom: 50, left: 80 }}
 				xScale={{ type: 'point' }}
 				yScale={{
