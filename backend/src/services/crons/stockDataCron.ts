@@ -9,6 +9,7 @@ import { IKSE100 } from '../../models/kse100';
 import { KSE100Repository } from '../../repository/kse100Repository';
 import { populateBiggestGainers, populateBiggestLosers, populateMostActive } from './standingPopulatingCron';
 
+
 const API_ENDPOINT = 'https://www.investorslounge.com/Default/SendPostRequest';
 //company: string, datefrom: string, dateto: string
 export const postData = async (companySymbol: string, dateFrom: string, dateTo: string) => {
@@ -32,7 +33,7 @@ export const postData = async (companySymbol: string, dateFrom: string, dateTo: 
 		const data: IPriceHistory[] = response.data;
 		const repository = new PriceHistoryRepository(companySymbol);
 		const formattedData = convertDateTimeToDate(data)
-		await repository.insertMany(data);
+		await repository.insertMany(formattedData);
 		logger.info('Request succeeded: ', companySymbol)
 	} catch (error) {
 		if (error.response) {
@@ -150,29 +151,30 @@ export const SingleFillCompany = async () => {
 	for (const company of companies) {
 		await delay(5000);
 		const repository = new PriceHistoryRepository(company.symbol);
+		// repository.dropCollection()
 		const latestDate = await repository.findLatestDate();
 		const formattedLatestDate = latestDate
 			? `${latestDate.getDate().toString().padStart(2, '0')} ${monthNames[latestDate.getMonth()]
 			} ${latestDate.getFullYear()}`
 			: '01 Jan 2000';
-		postData(company.symbol, formattedLatestDate, formattedToday);
+		postData(company.symbol, '01 Jan 2000', formattedToday);
 		logger.info('Request succeeded: ', company.symbol, formattedToday, formattedLatestDate)
 	}
-	populateBiggestGainers().then(() => {
-		console.log('Biggest gainers populated.');
-	}).catch((error) => {
-		console.error('Error populating biggest gainers:', error);
-	});
-	populateBiggestLosers().then(() => {
-		console.log('Biggest losers populated.');
-	}).catch((error) => {
-		console.error('Error populating biggest losers:', error);
-	});
-	populateMostActive().then(() => {
-		console.log('Most active populated.');
-	}).catch((error) => {
-		console.error('Error populating most active:', error);
-	});
+	// populateBiggestGainers().then(() => {
+	// 	console.log('Biggest gainers populated.');
+	// }).catch((error) => {
+	// 	console.error('Error populating biggest gainers:', error);
+	// });
+	// populateBiggestLosers().then(() => {
+	// 	console.log('Biggest losers populated.');
+	// }).catch((error) => {
+	// 	console.error('Error populating biggest losers:', error);
+	// });
+	// populateMostActive().then(() => {
+	// 	console.log('Most active populated.');
+	// }).catch((error) => {
+	// 	console.error('Error populating most active:', error);
+	// });
 }
 
 

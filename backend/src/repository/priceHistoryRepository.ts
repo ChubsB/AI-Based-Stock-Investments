@@ -20,6 +20,12 @@ export class PriceHistoryRepository implements IPriceHistoryRepository {
     return await Model.insertMany(data);
   }
 
+  dropCollection(){
+    const Model = getPriceHistoryModel(this.collectionName);
+    Model.collection.drop()
+    console.log(`Collection '${this.collectionName}' dropped successfully.`);
+  }
+
   async findLatestDate(): Promise<Date | null> {
     const Model = getPriceHistoryModel(this.collectionName);
     const latestDocument = await Model.findOne().sort({ Date_: -1 }).exec();
