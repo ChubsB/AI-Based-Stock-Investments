@@ -16,6 +16,7 @@ import {
 	getPortfolioStats,
 	getMonthlyTotalValues
 } from '../helpers/PortfolioValuation';
+import { getPredictedPortfolioValue } from '../helpers/PortfolioValuation';
 
 function DashboardPage() {
 	const [activePortfolios, setActivePortfolios] = useState(0);
@@ -24,6 +25,7 @@ function DashboardPage() {
 	const [monthlyReturns, setMonthlyReturns] = useState([]);
 	const [portfolioStats, setPortfolioStats] = useState([]);
 	const [monthlyTotals, setMonthlyTotals] = useState([]);
+	const [futureValue, setFutureValue] = useState([])
 
 	useEffect(() => {
 		async function fetchData() {
@@ -85,6 +87,16 @@ function DashboardPage() {
 		fetchData();
 	}, []);
 
+	useEffect(() => {
+		async function fetchData() {
+			const data = await getPredictedPortfolioValue();
+			if (data) {
+				setFutureValue(data);
+			}
+		}
+		fetchData();
+	}, []);
+
 	return (
 		<DashboardLayout>
 			<div className="flex justify-center mt-10">
@@ -92,17 +104,17 @@ function DashboardPage() {
 					<InfoBox
 						width="20"
 						title="Total Amount Invested"
-						value={`Rs ${totalNetworth.toLocaleString()}`}
+						value={totalNetworth ? `Rs ${totalNetworth.toLocaleString()}` : 'Loading...'}
 					></InfoBox>
 					<InfoBox
 						width="20"
 						title="Current Value"
-						value={`Rs ${currentValue.toLocaleString()}`}
+						value={currentValue ? `Rs ${currentValue.toLocaleString()}` : 'Loading...'}
 					></InfoBox>
 					<InfoBox
 						width="20"
-						title="Projected Value (Monthly)"
-						value="Rs N/A"
+						title="Projected Value (Weekly)"
+						value={futureValue.data ? `Rs ${futureValue.data.toLocaleString()}` : 'Loading...'}
 					></InfoBox>
 					<InfoBox
 						width="20"

@@ -10,6 +10,7 @@ import {
 	add,
 	sub,
 } from 'date-fns';
+import { getPredictedPrice } from '../api/predictedPrice';
 
 function subtractDays(date, days) {
 	const copyDate = new Date(date);
@@ -194,12 +195,11 @@ export async function getPortfolioStats() {
 
 	// Prepare an array for portfolio stats
 	let portfolioStats = [];
-
 	// Iterate over each portfolio in the list
 	for (let portfolio of portfolioList) {
 		// For each portfolio, get the current value
 		let { data: currentValue, error: currentValueError } =
-			await getCurrentPortfolioValue(portfolio);
+			await getSingleCurrentPortfolioValue(portfolio);
 		if (currentValueError) {
 			console.error(
 				`Failed to fetch current value for portfolio ${portfolio.portfolioName}:`,
@@ -273,11 +273,12 @@ export async function getMonthlyTotalValues() {
 		for (let portfolio of portfolioList) {
 			if (new Date(portfolio.creationDate) <= date) {
 				for (let company of portfolio.stocks) {
-					const { data: priceHistory, error: priceError } = await getPriceHistory(
-						company.symbol,
-						format(adjustToWeekday(startOfMonth(date)), 'yyyy-MM-dd'),
-						format(adjustToWeekday(endOfMonth(date)), 'yyyy-MM-dd')
-					);
+					const { data: priceHistory, error: priceError } =
+						await getPriceHistory(
+							company.symbol,
+							format(adjustToWeekday(startOfMonth(date)), 'yyyy-MM-dd'),
+							format(adjustToWeekday(endOfMonth(date)), 'yyyy-MM-dd')
+						);
 					if (!priceError && priceHistory.length > 0) {
 						const price = priceHistory[priceHistory.length - 1]?.Close || 0;
 						totalValue += price * company.quantity;
@@ -293,4 +294,113 @@ export async function getMonthlyTotalValues() {
 	}
 
 	return monthlyValues;
+}
+
+export async function getPredictedPortfolioValue() {
+	const { data: portfolios, error: portfolioError } = await getPortfolioList();
+	if (portfolioError) {
+		console.error(`Failed to get portfolios: ${portfolioError}`);
+		return { error: portfolioError };
+	}
+
+	let totalCurrentValue = 0;
+
+	for (const portfolio of portfolios) {
+		const { stocks } = portfolio;
+		for (const stock of stocks) {
+			const { symbol, quantity } = stock;
+			let { data: predictedPrice, error: priceError } = await getPredictedPrice(
+				symbol
+			);
+			if (priceError) {
+				console.error(
+					`Failed to get predicted price for ${symbol}: ${priceError}`
+				);
+				return { error: priceError };
+			}
+
+			// If there's no predicted price, handle the case accordingly
+			if (!predictedPrice) {
+				// Handle the case where the array is empty
+			}
+
+			if (predictedPrice) {
+				const price = predictedPrice[predictedPrice.length - 1];
+				if (predictedPrice.length !== 0) {
+					totalCurrentValue += price.Close * quantity;
+				}
+			}
+		}
+	}
+
+	return { data: totalCurrentValue, error: null };
+}
+
+export async function getSingleCurrentPortfolioValue(portfolio) {
+	let totalCurrentValue = 0;
+	const endDate = new Date();
+	const startDate = subtractDays(endDate, 30);
+	const { stocks } = portfolio;
+
+	for (const stock of stocks) {
+		const { symbol, quantity } = stock;
+		let { data: priceHistory, error: priceError } = await getPriceHistory(
+			symbol,
+			startDate,
+			endDate
+		);
+
+		if (priceError) {
+			console.error(`Failed to get price history for ${symbol}: ${priceError}`);
+			return { error: priceError };
+		}
+
+		// If there's no price history, use the price from 30 days ago.
+		if (priceHistory.length === 0) {
+			priceHistory = await getPriceHistory(
+				symbol,
+				subtractDays(endDate, 30),
+				endDate
+			);
+		}
+
+		if (priceHistory.length > 0) {
+			const price = priceHistory[priceHistory.length - 1]?.Close;
+			totalCurrentValue += price * quantity;
+		} else {
+			// Handle the case where the array is empty
+		}
+	}
+
+	return { data: totalCurrentValue, error: null };
+}
+
+export async function getSinglePredictedPortfolioValue(portfolio) {
+	let totalCurrentValue = 0;
+		const { stocks } = portfolio;
+		for (const stock of stocks) {
+			const { symbol, quantity } = stock;
+			let { data: predictedPrice, error: priceError } = await getPredictedPrice(
+				symbol
+			);
+			if (priceError) {
+				console.error(
+					`Failed to get predicted price for ${symbol}: ${priceError}`
+				);
+				return { error: priceError };
+			}
+
+			// If there's no predicted price, handle the case accordingly
+			if (!predictedPrice) {
+				// Handle the case where the array is empty
+			}
+
+			if (predictedPrice) {
+				const price = predictedPrice[predictedPrice.length - 1];
+				if (predictedPrice.length !== 0) {
+					totalCurrentValue += price.Close * quantity;
+				}
+			}
+		}
+	return { data: totalCurrentValue, error: null };
 }
