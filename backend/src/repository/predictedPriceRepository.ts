@@ -6,6 +6,7 @@ export interface IPredictedPriceRepository {
   findLatestPriceData(): Promise<IPredictedPrice | null>;
   findPreviousClose(date: Date): Promise<IPredictedPrice | null>;
   findWithinDateRange(startDate: Date, endDate: Date): Promise<IPredictedPrice[]>; // new method
+  findAll(): Promise<IPredictedPrice[]>;
 }
 
 export class PredictedPriceRepository implements IPredictedPriceRepository {
@@ -46,5 +47,10 @@ export class PredictedPriceRepository implements IPredictedPriceRepository {
   async findWithinDateRange(startDate: Date, endDate: Date): Promise<IPredictedPrice[]> {
     const Model = getPredictedPriceModel(this.collectionName);
     return await Model.find({ Date_: { $gte: startDate, $lte: endDate } }).sort({ Date_: 1 }).exec();
+  }
+
+  async findAll(): Promise<IPredictedPrice[]> {
+    const Model = getPredictedPriceModel(this.collectionName);
+    return await Model.find().exec();
   }
 }
