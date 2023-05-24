@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
 const TestGraph = ({ data }) => {
-	const [timeRange, setTimeRange] = useState('1m');
+	const [timeRange, setTimeRange] = useState('1y');
 	
 	const filterDataByTimeRange = (data, range) => {
 		const now = new Date();
@@ -44,11 +44,11 @@ const TestGraph = ({ data }) => {
 	return (
 		<div>
 			<div className='w-full flex justify-around mt-2'>
-				<button className='bg-tertiary rounded p-2' onClick={() => setTimeRange('1m')}>1 Month</button>
-				<button className='bg-tertiary rounded p-2' onClick={() => setTimeRange('6m')}>6 Months</button>
-				<button className='bg-tertiary rounded p-2' onClick={() => setTimeRange('1y')}>1 Year</button>
-				<button className='bg-tertiary rounded p-2' onClick={() => setTimeRange('3y')}>3 Years</button>
-				<button className='bg-tertiary rounded p-2' onClick={() => setTimeRange('5y')}>5 Years</button>
+				<button className='bg-primary text-secondayBackground rounded p-2' onClick={() => setTimeRange('1m')}>1 Month</button>
+				<button className='bg-primary text-secondayBackground rounded p-2' onClick={() => setTimeRange('6m')}>6 Months</button>
+				<button className='bg-primary text-secondayBackground rounded p-2' onClick={() => setTimeRange('1y')}>1 Year</button>
+				<button className='bg-primary text-secondayBackground rounded p-2' onClick={() => setTimeRange('3y')}>3 Years</button>
+				<button className='bg-primary text-secondayBackground rounded p-2' onClick={() => setTimeRange('5y')}>5 Years</button>
 			</div>
 			<div style={{ height: '400px' }}>
 			<ResponsiveLine

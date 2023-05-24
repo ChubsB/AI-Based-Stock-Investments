@@ -20,8 +20,6 @@ const SideBar = () => {
 		{ title: 'Schedule ', src: Calendar },
 		{ title: 'Search', src: Search },
 		{ title: 'Analytics', src: Chart },
-		{ title: 'Files ', src: Folder, gap: true },
-		{ title: 'Setting', src: Setting },
 	];
 	return (
 		<div className="flex">

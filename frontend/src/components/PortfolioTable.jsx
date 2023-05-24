@@ -26,13 +26,13 @@ function PortfolioTable({ data }) {
               {row.symbol}
             </td>
             <td className="px-6 py-2 text-center whitespace-nowrap text-primary font-inter text-sm hover:shadow-lg hover:z-10 transition-all duration-200 text-gray-500">
-              {row.quantity}
+              {row.quantity.toLocaleString()}
             </td>
             <td className="px-6 py-2 text-center whitespace-nowrap text-primary font-inter text-sm hover:shadow-lg hover:z-10 transition-all duration-200 text-gray-500">
-              {row.price.toFixed(2)}
+              {row.price.toFixed(2).toLocaleString()}
             </td>
             <td className="px-6 py-2 text-center whitespace-nowrap text-primary text-sm hover:shadow-lg hover:z-10 transition-all duration-200 text-gray-500">
-              {(row.quantity * row.price).toFixed(2)}
+              {(row.quantity * row.price).toFixed(2).toLocaleString()}
             </td>
           </tr>
         ))}

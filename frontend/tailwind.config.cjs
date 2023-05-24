@@ -12,7 +12,10 @@ module.exports = {
 				tertiary: '#6b7280',
 				success: '#02ec88',
 				danger: '#e53529',
-				info: '#0048ff'
+				info: '#0048ff',
+				high: '#FFEA20',
+				medium: '#98EECC',
+				low: '#8DCBE6',
 			},
 			fontFamily: {
 				inter: ['Inter', ...defaultTheme.fontFamily.sans],

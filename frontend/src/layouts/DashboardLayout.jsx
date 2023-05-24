@@ -4,8 +4,6 @@ import ChartFill from '../assets/images/Chart_fill.png';
 import Chart from '../assets/images/Chart.png';
 import Chat from '../assets/images/Chat.png';
 import User from '../assets/images/User.png';
-import Folder from '../assets/images/Folder.png';
-import Setting from '../assets/images/Setting.png';
 import Control from '../assets/images/Control.png';
 import Logo from '../assets/images/Logo.png';
 import { FiUser, FiBell } from 'react-icons/fi';
@@ -21,8 +19,6 @@ const DashboardLayout = (props) => {
 		{ title: 'market', src: Chat },
 		{ title: 'stocks', src: Chart },
 		{ title: 'portfolio', src: User },
-		{ title: 'theme ', src: Folder, gap: true },
-		{ title: 'settings', src: Setting },
 	];
 
 	useEffect(() => {
