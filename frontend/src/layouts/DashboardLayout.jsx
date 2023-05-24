@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate  } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ChartFill from '../assets/images/Chart_fill.png';
 import Chart from '../assets/images/Chart.png';
 import Chat from '../assets/images/Chat.png';
@@ -11,17 +11,40 @@ import Logo from '../assets/images/Logo.png';
 import { FiUser, FiBell } from 'react-icons/fi';
 
 const DashboardLayout = (props) => {
-	const [tab, setTab] = useState('Dashboard');
+	const [tab, setTab] = useState('dashboard');
 	const navigate = useNavigate();
+	const [currentPath, setCurrentPath] = useState('/');
+	const location = useLocation();
 	const [open, setOpen] = useState(true);
 	const Menus = [
-		{ title: 'Dashboard', src: ChartFill },
-		{ title: 'Market', src: Chat },
-		{ title: 'Stocks', src: Chart },
-		{ title: 'Portfolio ', src: User },
-		{ title: 'Theme ', src: Folder, gap: true },
-		{ title: 'Settings', src: Setting },
+		{ title: 'dashboard', src: ChartFill },
+		{ title: 'market', src: Chat },
+		{ title: 'stocks', src: Chart },
+		{ title: 'portfolio', src: User },
+		{ title: 'theme ', src: Folder, gap: true },
+		{ title: 'settings', src: Setting },
 	];
+
+	useEffect(() => {
+		if (location.pathname !== currentPath) {
+			setCurrentPath(location.pathname);
+		}
+	}, [location.pathname, currentPath]);
+
+	useEffect(() => {
+		if (currentPath !== '/') {
+			setTab(currentPath.substr(1).toLowerCase().replace('-', ' '));
+		}
+	}, [currentPath]);
+
+	const handleMenuClick = (title) => {
+		const newPath = `/${title.toLowerCase().replace(' ', '-')}`;
+		if (newPath !== currentPath) {
+			setCurrentPath(newPath);
+			navigate(newPath);
+		}
+	};
+
 	return (
 		<div className="flex min-h-screen h-full">
 			<div
@@ -53,13 +76,12 @@ const DashboardLayout = (props) => {
 				<ul className="pt-6">
 					{Menus.map((Menu, index) => (
 						<li
-							onClick={() => {
-								setTab(Menu.title)
-								navigate("/"+ Menu.title.toLowerCase())
-							}}
+							onClick={() => handleMenuClick(Menu.title)}
 							key={index}
 							className={`flex  rounded-md p-2 cursor-pointer hover:bg-primaryHover text-secondary text-sm items-center gap-x-4 transition-all ease-in duration-300
-              ${Menu.gap ? 'mt-9' : 'mt-4'} ${tab == Menu.title && 'bg-primaryHover'} `}
+              ${Menu.gap ? 'mt-9' : 'mt-4'} ${
+								tab == Menu.title && 'bg-primaryHover'
+							} `}
 						>
 							<img src={Menu.src} />
 							<span
@@ -76,7 +98,7 @@ const DashboardLayout = (props) => {
 			<div className="w-full h-screen bg-secondary overflow-y-scroll">
 				<div className="flex items-center justify-between h-[10%] bg-secondayBackground shadow-md">
 					<div className="ml-10 text-primary font-inter font-semibold text-3xl">
-						Dashboard
+						{tab}
 					</div>
 					<div className="flex justify-between items-center w-[5%] mr-10">
 						<FiUser className="text-primary text-3xl" />
