@@ -13,15 +13,17 @@ export const fetchCompanyData = async () => {
 
   const startDate = new Date('2000-01-01');
   const endDate = new Date(); // today's date
+  for(let symbol of symbols) {
+    const predictedPriceRepository = new PredictedPriceRepository(symbol);
+    predictedPriceRepository.dropCollection()
+  }
 
   for (let symbol of symbols) {
     const priceHistoryRepository = new PriceHistoryRepository(symbol);
     const priceData = await priceHistoryRepository.findWithinDateRange(startDate, endDate);
     const predictedPriceRepository = new PredictedPriceRepository(symbol);
     if(priceData.length != 0){
-      const response = await axios.post(API_ENDPOINT, {
-        historical_data: priceData,
-      });
+      const response = await axios.post(API_ENDPOINT, priceData);
       const mergedArray = mergeArrays(getNextFiveWorkingDays(), response.data.predictions);
       // predictedPriceRepository.dropCollection()
       predictedPriceRepository.insertMany(mergedArray)

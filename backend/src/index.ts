@@ -10,11 +10,13 @@ import indexRouter from './controllers/indexController';
 import {Company} from './models/company'
 import priceHistoryRouter from './controllers/priceHistoryController';
 import standingRouter from './controllers/standingController';
+import companyRouter from './controllers/companyController';
 import { scheduleStockDataPostRequest, fetchKSE100Data, SingleFillCompany, SingleFillIndex } from './services/crons/stockDataCron';
 import { populateBiggestGainers, populateBiggestLosers, populateMostActive } from './services/crons/standingPopulatingCron';
 import cors from 'cors';
 import { removeDuplicateRecords, removeDuplicatesFromAllCompanies } from './helpers/removeDuplicates';
 import { fetchCompanyData } from './services/crons/stockPredictionCron';
+import predictedPriceRouter from './controllers/predictedPriceController';
 
 dotenv.config();
 
@@ -67,6 +69,8 @@ app.use('/portfolios', portfolioRouter);
 app.use('/price-history', priceHistoryRouter);
 app.use('/index', indexRouter)
 app.use('/standing', standingRouter)
+app.use('/company', companyRouter);
+app.use('/predicted-price', predictedPriceRouter);
 
 app.use((req, res, next) => {
 	const error = new Error('Not found');
@@ -92,4 +96,4 @@ app.listen(config.server.port, () => {
 // populateMostActive()
 logEndpoints(app);
 
-// fetchCompanyData()
+fetchCompanyData()

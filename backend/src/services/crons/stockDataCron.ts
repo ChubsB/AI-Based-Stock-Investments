@@ -153,28 +153,29 @@ export const SingleFillCompany = async () => {
 		const repository = new PriceHistoryRepository(company.symbol);
 		// repository.dropCollection()
 		const latestDate = await repository.findLatestDate();
+		latestDate.setDate(latestDate.getDate() + 1);
 		const formattedLatestDate = latestDate
 			? `${latestDate.getDate().toString().padStart(2, '0')} ${monthNames[latestDate.getMonth()]
 			} ${latestDate.getFullYear()}`
 			: '01 Jan 2000';
-		postData(company.symbol, '01 Jan 2000', formattedToday);
+		postData(company.symbol, formattedLatestDate, formattedToday);
 		logger.info('Request succeeded: ', company.symbol, formattedToday, formattedLatestDate)
 	}
-	// populateBiggestGainers().then(() => {
-	// 	console.log('Biggest gainers populated.');
-	// }).catch((error) => {
-	// 	console.error('Error populating biggest gainers:', error);
-	// });
-	// populateBiggestLosers().then(() => {
-	// 	console.log('Biggest losers populated.');
-	// }).catch((error) => {
-	// 	console.error('Error populating biggest losers:', error);
-	// });
-	// populateMostActive().then(() => {
-	// 	console.log('Most active populated.');
-	// }).catch((error) => {
-	// 	console.error('Error populating most active:', error);
-	// });
+	populateBiggestGainers().then(() => {
+		console.log('Biggest gainers populated.');
+	}).catch((error) => {
+		console.error('Error populating biggest gainers:', error);
+	});
+	populateBiggestLosers().then(() => {
+		console.log('Biggest losers populated.');
+	}).catch((error) => {
+		console.error('Error populating biggest losers:', error);
+	});
+	populateMostActive().then(() => {
+		console.log('Most active populated.');
+	}).catch((error) => {
+		console.error('Error populating most active:', error);
+	});
 }
 
 
