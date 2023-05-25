@@ -5,7 +5,7 @@ module.exports = {
 	entry: './index.jsx',
 	mode: 'development',
 	output: {
-		path: path.resolve(__dirname, './dist'),
+		path: path.resolve(__dirname, './.dist'),
 		filename: 'index_bundle.js',
 		publicPath: '/',
 		assetModuleFilename: 'src/assets/images/[name].[ext]'
