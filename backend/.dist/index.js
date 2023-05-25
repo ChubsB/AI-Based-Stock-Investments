@@ -38,7 +38,10 @@ const indexController_1 = __importDefault(require("./controllers/indexController
 const company_1 = require("./models/company");
 const priceHistoryController_1 = __importDefault(require("./controllers/priceHistoryController"));
 const standingController_1 = __importDefault(require("./controllers/standingController"));
+const companyController_1 = __importDefault(require("./controllers/companyController"));
 const cors_1 = __importDefault(require("cors"));
+const stockPredictionCron_1 = require("./services/crons/stockPredictionCron");
+const predictedPriceController_1 = __importDefault(require("./controllers/predictedPriceController"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.urlencoded({ extended: false }));
@@ -85,6 +88,8 @@ app.use('/portfolios', portfolioController_1.default);
 app.use('/price-history', priceHistoryController_1.default);
 app.use('/index', indexController_1.default);
 app.use('/standing', standingController_1.default);
+app.use('/company', companyController_1.default);
+app.use('/predicted-price', predictedPriceController_1.default);
 app.use((req, res, next) => {
     const error = new Error('Not found');
     logger.error('' + error);
@@ -103,4 +108,5 @@ app.listen(config_1.config.server.port, () => {
 // populateBiggestLosers()
 // populateMostActive()
 (0, expressUtilsService_1.logEndpoints)(app);
+(0, stockPredictionCron_1.fetchCompanyData)();
 //# sourceMappingURL=index.js.map

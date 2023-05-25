@@ -17,6 +17,16 @@ class CompanyRepository {
             return yield company_1.Company.find({});
         });
     }
+    findByName(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield company_1.Company.findOne({ symbol: name });
+        });
+    }
+    findAllSymbols() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield company_1.Company.find({}, { symbol: 1, _id: 0 });
+        });
+    }
 }
 exports.CompanyRepository = CompanyRepository;
 //# sourceMappingURL=companyRepository.js.map

@@ -96,4 +96,4 @@ app.listen(config.server.port, () => {
 // populateMostActive()
 logEndpoints(app);
 
-fetchCompanyData()
+// fetchCompanyData()
