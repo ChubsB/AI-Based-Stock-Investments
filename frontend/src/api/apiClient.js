@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode';
 //baseURL: '',
 
 const apiClient = axios.create({
-  baseURL: 'https://rupi-backend.vercel.app',
+  baseURL: 'http://localhost:4000',
 });
 
 apiClient.interceptors.request.use((config) => {
