@@ -40,7 +40,6 @@ const priceHistoryController_1 = __importDefault(require("./controllers/priceHis
 const standingController_1 = __importDefault(require("./controllers/standingController"));
 const companyController_1 = __importDefault(require("./controllers/companyController"));
 const cors_1 = __importDefault(require("cors"));
-const stockPredictionCron_1 = require("./services/crons/stockPredictionCron");
 const predictedPriceController_1 = __importDefault(require("./controllers/predictedPriceController"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -108,5 +107,5 @@ app.listen(config_1.config.server.port, () => {
 // populateBiggestLosers()
 // populateMostActive()
 (0, expressUtilsService_1.logEndpoints)(app);
-(0, stockPredictionCron_1.fetchCompanyData)();
+// fetchCompanyData()
 //# sourceMappingURL=index.js.map
