@@ -6,7 +6,7 @@
   "scripts": {
     "serverStart": "webpack-dev-server . --hot",
     "build": "webpack .",
-    "start": "serve -s dist",
+    "start": "serve -s .dist",
     "lint": "eslint . --fix --max-warnings=0",
     "format": "prettier . --write",
     "test": "jest",
