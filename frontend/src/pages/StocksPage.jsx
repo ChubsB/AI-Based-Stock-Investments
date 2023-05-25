@@ -117,21 +117,27 @@ function StocksPage() {
 
 	// Compute the CSS class name
 	let ratingClass = '';
+	let numClass = ''
 	switch (rating) {
 		case 'High':
-			ratingClass = 'bg-high';
+			ratingClass = 'text-high';
+			numClass = 'text-success'
 			break;
 		case 'Medium':
-			ratingClass = 'bg-medium';
+			ratingClass = 'text-medium';
+			numClass = 'text-success'
 			break;
 		case 'Low':
-			ratingClass = 'bg-low';
+			ratingClass = 'text-low';
+			numClass = 'text-success'
 			break;
 		case 'Avoid':
-			ratingClass = 'bg-danger';
+			ratingClass = 'text-danger';
+			numClass = 'text-danger'
 			break;
 		default:
-			ratingClass = 'bg-default';
+			ratingClass = 'text-default';
+			numClass = 'text-secondaryBackground'
 	}
 
 	return (
@@ -170,11 +176,11 @@ function StocksPage() {
 						<SkeletonLoader />
 					)}
 				</div>
-				<div className={`flex flex-col justify-center items-center ${ratingClass} h-full w-1/5 rounded`}>
+				<div className={`flex flex-col justify-center items-center bg-primary text-secondary h-full w-1/5 rounded`}>
 					<div className="font-inter font-semibold text-3xl mt-8">
 						AI Rating
 					</div>
-					<div className="font-inter font-bold text-5xl mt-10">
+					<div className={`font-inter font-bold text-5xl mt-10 ${ratingClass}`}>
 						{getRating(
 							priceHistory.length > 0
 								? priceHistory[priceHistory.length - 1].Close
@@ -190,7 +196,7 @@ function StocksPage() {
 							? priceHistory[priceHistory.length - 1].Close.toFixed(2)
 							: 'Loading...'}
 					</div>
-					<div className="font-inter font-semibold text-xl mt-5">
+					<div className={`font-inter font-semibold text-xl mt-5 ${numClass}`}>
 						Predicted Price:{' '}
 						{predictedPrice.length > 0
 							? predictedPrice[predictedPrice.length - 1].Close.toFixed(2)
@@ -203,3 +209,4 @@ function StocksPage() {
 }
 
 export default StocksPage;
+//${ratingClass}
