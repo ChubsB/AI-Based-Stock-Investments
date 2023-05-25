@@ -66,7 +66,7 @@ const postData = (companySymbol, dateFrom, dateTo) => __awaiter(void 0, void 0, 
         const data = response.data;
         const repository = new priceHistoryRepository_1.PriceHistoryRepository(companySymbol);
         const formattedData = (0, stockDataFormattingHelper_1.convertDateTimeToDate)(data);
-        yield repository.insertMany(data);
+        yield repository.insertMany(formattedData);
         logger.info('Request succeeded: ', companySymbol);
     }
     catch (error) {
@@ -181,7 +181,9 @@ const SingleFillCompany = () => __awaiter(void 0, void 0, void 0, function* () {
     for (const company of companies) {
         yield delay(5000);
         const repository = new priceHistoryRepository_1.PriceHistoryRepository(company.symbol);
+        // repository.dropCollection()
         const latestDate = yield repository.findLatestDate();
+        latestDate.setDate(latestDate.getDate() + 1);
         const formattedLatestDate = latestDate
             ? `${latestDate.getDate().toString().padStart(2, '0')} ${monthNames[latestDate.getMonth()]} ${latestDate.getFullYear()}`
             : '01 Jan 2000';

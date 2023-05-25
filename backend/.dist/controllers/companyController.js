@@ -12,15 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addUserToCollection = void 0;
-const user_1 = __importDefault(require("../models/user"));
-function addUserToCollection(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const payload = req.body;
-        let usr = new user_1.default(payload);
-        usr.save().catch((err) => res.send(err));
-        res.status(200).send();
-    });
-}
-exports.addUserToCollection = addUserToCollection;
-//# sourceMappingURL=user_controller.js.map
+const express_1 = __importDefault(require("express"));
+const companyRepository_1 = require("../repository/companyRepository");
+const companyRouter = express_1.default.Router();
+const companyRepo = new companyRepository_1.CompanyRepository();
+companyRouter.get('/:companyName', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { companyName } = req.params;
+    // Assuming `findByName()` method returns null if company not found
+    const company = yield companyRepo.findByName(companyName);
+    if (!company) {
+        return res.status(404).json({ error: 'Company not found' });
+    }
+    res.json(company);
+}));
+companyRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const companies = yield companyRepo.findAllSymbols();
+    res.json(companies);
+}));
+exports.default = companyRouter;
+//# sourceMappingURL=companyController.js.map

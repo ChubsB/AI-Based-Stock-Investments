@@ -23,12 +23,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const usersController = __importStar(require("../controllers/user_controller"));
-const userRouter = (0, express_1.Router)();
-userRouter.post("/sign-up", usersController.addUserToCollection);
-// userRouter.post("/login", usersController.addUserToCollection)
-// userRouter.post("/logout", usersController.addUserToCollection)
-// userRouter.get("/:userid", usersController.addUserToCollection)
-exports.default = userRouter;
-//# sourceMappingURL=user_routes.js.map
+exports.getPredictedPriceModel = void 0;
+const mongoose_1 = __importStar(require("mongoose"));
+const PredictedPriceSchema = new mongoose_1.Schema({
+    Date_: { type: Date, required: true },
+    Close: { type: Number, required: true },
+});
+const getPredictedPriceModel = (companyName) => {
+    return mongoose_1.default.model(companyName, PredictedPriceSchema);
+};
+exports.getPredictedPriceModel = getPredictedPriceModel;
+//# sourceMappingURL=predictedPrice.js.map

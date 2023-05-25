@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon",
-    "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/index.js",
+    "build": "rimraf ./dist && tsc",
+    "start": "npx nodemon",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
