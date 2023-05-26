@@ -14,6 +14,7 @@ import { MdAnalytics } from 'react-icons/md';
 import PortfolioTable from '../components/PortfolioTable';
 import PortfolioDropdown from '../components/PortfolioDropdown';
 import { getSinglePredictedPortfolioValue } from '../helpers/PortfolioValuation';
+import { useNavigate } from 'react-router-dom';
 
 function PortfolioPage() {
 	const [portfolio, setPortfolio] = useState(null);
@@ -22,6 +23,7 @@ function PortfolioPage() {
 	const [portfolioStocks, setPortfolioStocks] = useState([]);
 	const [allPortfolios, setAllPortfolios] = useState([]);
 	const [futureValue, setFutureValue] = useState('');
+	const navigate = useNavigate();
 
 	const today = new Date();
 	const yesterday = new Date(today);
@@ -212,14 +214,8 @@ function PortfolioPage() {
 	return (
 		<DashboardLayout>
 			<div className="flex justify-end mt-10 mx-16">
-				<button className="mr-5 px-4 py-2 rounded bg-blue-500 text-white">
-					Create
-				</button>
-				<button className="mr-5 px-4 py-2 rounded bg-yellow-500 text-white">
-					Edit
-				</button>
-				<button className="px-4 py-2 rounded bg-red-500 text-white">
-					Delete
+				<button onClick={() => navigate('/portfolio/explore')} className="mr-5 px-4 py-2 rounded bg-blue-500 text-white">
+					Explore More
 				</button>
 			</div>
 			<div className="flex justify-center mt-10">

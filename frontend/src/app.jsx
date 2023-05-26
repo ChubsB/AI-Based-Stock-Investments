@@ -8,6 +8,7 @@ import MarketPage from './pages/MarketPage';
 import StocksPage from './pages/StocksPage';
 import PortfolioPage from './pages/PortfolioPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import CreatePortfolio from './pages/CreatePortfolio';
 import './app.css';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 				<Route path="/market" element={<MarketPage />} />
 				<Route path="/stocks" element={<StocksPage />} />
 				<Route path="/portfolio" element={<PortfolioPage />} />
+				<Route path="/portfolio/explore" element={<CreatePortfolio />} />
 			</Route>
 		</Routes>
 	);
